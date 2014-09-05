@@ -1,0 +1,43 @@
+﻿@model @SIAM.Model.Entities.Usuario
+
+@{
+    ViewBag.Title = "About";
+}
+
+<h1>CREAR USUARIOS</h1>
+
+@using (@Html.BeginForm("GuardarUsuario","Home")){
+<table>
+    <tr>
+        <td>Nombres:</td>
+        <td>@Html.TextBoxFor(x => x.Nombres)</td>
+    </tr>
+    <tr>
+        <td>Apellidos:</td>
+        <td>@Html.TextBoxFor(x => x.Apellidos)</td>
+    </tr>
+    <tr>
+        <td>Cedula</td>
+        <td>@Html.TextBoxFor(x => x.Cedula)</td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td>@Html.TextBoxFor(x => x.Password)</td>
+    </tr>
+    <tr>
+        <td>Carrera</td>
+        <td>@Html.TextBoxFor(x => x.Carrera)</td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>@Html.TextBoxFor(x => x.Email)</td>
+    </tr>
+    <tr>
+        <td>Telefono</td>
+        <td>@Html.TextBoxFor(x => x.Telefono)</td>
+    </tr>
+    <tr>
+        <td><button id="btnGuardarUsuario">Guardar</button></td>
+    </tr>
+</table>
+}

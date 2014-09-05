@@ -1,0 +1,24 @@
+﻿@model SIAM.Model.Entities.Curso
+@{
+    ViewBag.Title = "CrearCurso";
+}
+
+<h2>CrearCurso</h2>
+
+
+@using (@Html.BeginForm("GuardarCurso","Home")){
+<table>
+    <tr>
+        <td>Nombre del Curso:</td>
+        <td>@Html.TextBoxFor(x => x.NombreCurso)</td>
+    </tr>
+    <tr>
+        <td>Intensidad Horaria:</td>
+        <td>@Html.TextBoxFor(x => x.IntensidadHoraria)</td>
+    </tr>
+    <tr>
+        <td><button id="botonGuardarCurso">Guardar</button></td>
+    </tr>
+</table>
+}
+

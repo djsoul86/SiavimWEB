@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIAM", "SIAM\SIAM.csproj", "{8A68F378-C3BE-4069-ADE6-4ACA742BEF75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIAM.Data.CodeFirst", "SIAM.Data.CodeFirst\SIAM.Data.CodeFirst.csproj", "{35E9CC62-833F-4BEA-847B-4C062A840D1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIAM.Model", "SIAM.Model\SIAM.Model.csproj", "{145CD65D-E789-455E-AFB9-A67F8CAEDCD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A68F378-C3BE-4069-ADE6-4ACA742BEF75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A68F378-C3BE-4069-ADE6-4ACA742BEF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A68F378-C3BE-4069-ADE6-4ACA742BEF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A68F378-C3BE-4069-ADE6-4ACA742BEF75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35E9CC62-833F-4BEA-847B-4C062A840D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E9CC62-833F-4BEA-847B-4C062A840D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35E9CC62-833F-4BEA-847B-4C062A840D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E9CC62-833F-4BEA-847B-4C062A840D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{145CD65D-E789-455E-AFB9-A67F8CAEDCD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{145CD65D-E789-455E-AFB9-A67F8CAEDCD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{145CD65D-E789-455E-AFB9-A67F8CAEDCD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{145CD65D-E789-455E-AFB9-A67F8CAEDCD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

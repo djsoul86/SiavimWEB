@@ -1,0 +1,35 @@
+﻿@model SIAM.Model.Entities.Usuario
+@{
+    ViewBag.Title = "ModificarUsuario";
+}
+
+<h2>Modificar Usuario</h2>
+
+@using (@Html.BeginForm("GuardarModificacionUsuario", "Home")) {
+<table>
+    @Html.HiddenFor(x => x.Cedula)
+    <tr>
+        <td>Nombres Usuario:</td>
+        <td>@Html.TextBoxFor(x => x.Nombres)</td>
+    </tr>
+    <tr>
+        <td>Apellidos Usuario:</td>
+        <td>@Html.TextBoxFor(x => x.Apellidos)</td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>@Html.TextBoxFor(x => x.Email)</td>
+    </tr>
+    <tr>
+        <td>Telefono</td>
+        <td>@Html.TextBoxFor(x => x.Telefono)</td>
+    </tr>
+    <tr>
+        <td>Carrera</td>
+        <td>@Html.TextBoxFor(x => x.Carrera)</td>
+    </tr>
+    <tr>
+        <td><button id="btnModificarUsuario">Modificar</button></td>
+    </tr>
+</table>
+}

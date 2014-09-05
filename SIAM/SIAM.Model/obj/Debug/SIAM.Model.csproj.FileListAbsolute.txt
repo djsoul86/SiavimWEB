@@ -1,0 +1,4 @@
+C:\Ernesto\ProyectoSIAM\SIAM\SIAM.Model\bin\Debug\SIAM.Model.dll
+C:\Ernesto\ProyectoSIAM\SIAM\SIAM.Model\bin\Debug\SIAM.Model.pdb
+C:\Ernesto\ProyectoSIAM\SIAM\SIAM.Model\obj\Debug\SIAM.Model.dll
+C:\Ernesto\ProyectoSIAM\SIAM\SIAM.Model\obj\Debug\SIAM.Model.pdb
