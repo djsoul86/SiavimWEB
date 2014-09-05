@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{35E9CC62-833F-4BEA-847B-4C062A840D1C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SIAM.Data.CodeFirst</RootNamespace>
+    <AssemblyName>SIAM.Data.CodeFirst</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migrations\201407311607252_siam1.cs" />
+    <Compile Include="Migrations\201407311607252_siam1.Designer.cs">
+      <DependentUpon>201407311607252_siam1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408191933450_siam2.cs" />
+    <Compile Include="Migrations\201408191933450_siam2.Designer.cs">
+      <DependentUpon>201408191933450_siam2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408201909214_siam3.cs" />
+    <Compile Include="Migrations\201408201909214_siam3.Designer.cs">
+      <DependentUpon>201408201909214_siam3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409041809206_siam4.cs" />
+    <Compile Include="Migrations\201409041809206_siam4.Designer.cs">
+      <DependentUpon>201409041809206_siam4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409041813375_siam41.cs" />
+    <Compile Include="Migrations\201409041813375_siam41.Designer.cs">
+      <DependentUpon>201409041813375_siam41.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409041851204_siam5.cs" />
+    <Compile Include="Migrations\201409041851204_siam5.Designer.cs">
+      <DependentUpon>201409041851204_siam5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409041929425_siam6.cs" />
+    <Compile Include="Migrations\201409041929425_siam6.Designer.cs">
+      <DependentUpon>201409041929425_siam6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SIAM.Model\SIAM.Model.csproj">
+      <Project>{145cd65d-e789-455e-afb9-a67f8caedcd3}</Project>
+      <Name>SIAM.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SIAM\SIAM.csproj">
+      <Project>{8a68f378-c3be-4069-ade6-4aca742bef75}</Project>
+      <Name>SIAM</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201407311607252_siam1.resx">
+      <DependentUpon>201407311607252_siam1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408191933450_siam2.resx">
+      <DependentUpon>201408191933450_siam2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408201909214_siam3.resx">
+      <DependentUpon>201408201909214_siam3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409041809206_siam4.resx">
+      <DependentUpon>201409041809206_siam4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409041813375_siam41.resx">
+      <DependentUpon>201409041813375_siam41.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409041851204_siam5.resx">
+      <DependentUpon>201409041851204_siam5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409041929425_siam6.resx">
+      <DependentUpon>201409041929425_siam6.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ServiceBD\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

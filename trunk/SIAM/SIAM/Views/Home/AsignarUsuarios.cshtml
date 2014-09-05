@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "AsignarUsuarios";
+    var data = ViewData["usuarios"] as List<SIAM.Model.Entities.Usuario>;
+    var curso = ViewData["curso"] as String;
+}
+
+<h2>Asignar usuarios a @curso</h2>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+        $("#btnAsignarCurso").click(function () {
+            var ubicacion = new Array();
+            var i = 0;
+            var checked = $("input[name='usersSelected']:checked");
+            for (var i = 0; i < checked.length; i++) {
+                ubicacion.push(checked[i].id);
+            }
+            for (var i = 0; i < ubicacion.length; i++) {
+                if (i != ubicacion.length - 1) {
+                    $("#usuario").val($("#usuario").val() + ubicacion[i] + "|")
+                } else {
+                    $("#usuario").val($("#usuario").val() + ubicacion[i])
+                }
+            }
+
+        });
+
+    </script>
+
+}
+
+
+@using (@Html.BeginForm("GuardarAsignacionUsuarios","Home")){
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Cedula</th>
+            <th>Email</th>
+            <th>Carrera</th>
+            <th>Telefono</th>
+            <th>Seleccionar</th>
+        </tr>
+        @Html.Hidden("usuario")
+        @Html.Hidden("curso")
+    </thead>
+    @foreach (SIAM.Model.Entities.Usuario u in data) {
+        <tr>
+            <td>@u.Nombres</td>
+            <td>@u.Apellidos</td>
+            <td>@u.Cedula</td>
+            <td>@u.Email</td>
+            <td>@u.Carrera</td>
+            <td>@u.Telefono</td>
+            <td><input name="usersSelected" type="checkbox" id='@u.Cedula' /></td>
+        </tr>
+    }
+    <tr>
+        <td><button id="btnAsignarCurso">Asignar</button></td>
+    </tr>
+</table>
+}

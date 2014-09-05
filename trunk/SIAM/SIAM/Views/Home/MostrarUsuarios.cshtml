@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "MostrarUsuarios";
+    var data = ViewData["usuarios"] as List<SIAM.Model.Entities.Usuario>;
+}
+
+@section scripts{
+<link href="~/Content/TableCSSCode.css" rel="stylesheet" />
+    }
+
+<h2>Mostrar Estudiantes</h2>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Cedula</th>
+            <th>Email</th>
+            <th>Carrera</th>
+            <th>Telefono</th>
+            <th>Acciones</th>
+            <th>Curso Asociado</th>
+        </tr>
+    </thead>
+    @foreach (SIAM.Model.Entities.Usuario u in data) {
+        <tr>
+            <td>@u.Nombres</td>
+            <td>@u.Apellidos</td>
+            <td>@u.Cedula</td>
+            <td>@u.Email</td>
+            <td>@u.Carrera</td>
+            <td>@u.Telefono</td>
+            <td>@Html.ActionLink("Modificar", "ModificarUsuario", "Home", new {id = @u.Cedula },null)</td>
+            <td>@u.Curso.NombreCurso</td>
+        </tr>
+    }
+</table>
+

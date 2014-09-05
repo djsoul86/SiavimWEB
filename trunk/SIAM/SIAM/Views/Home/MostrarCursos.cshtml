@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "MostrarCursos";
+    var data = ViewData["cursos"] as List<SIAM.Model.Entities.Curso>;
+}
+
+<h2>MostrarCursos</h2>
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre Curso</th>
+            <th>Intensidad Horaria</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+    </thead>
+    @foreach (SIAM.Model.Entities.Curso u in data) {
+        <tr>
+            <td>@u.NombreCurso</td>
+            <td>@u.IntensidadHoraria</td>
+            <td>@Html.ActionLink("Modificar", "ModificarCurso", "Home", new {id = @u.IdCurso },null)</td>
+            <td>@Html.ActionLink("AsignarUsuario", "AsignarUsuarios", "Home", new {id = @u.IdCurso },null)</td>
+        </tr>
+    }
+</table>
