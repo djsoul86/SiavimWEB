@@ -1,0 +1,24 @@
+﻿@model @SIAM.Model.Entities.Alertas
+@{
+    ViewBag.Title = "CrearAlerta";
+}
+
+<h2>CrearAlerta</h2>
+
+@using (Html.BeginForm("GuardarAlerta","Home")){
+<table>
+    <tr>
+        <td>Tipo Alerta:</td>
+        <td>@Html.DropDownListFor(x => x.TipoAlerta, ViewData["Alertas"] as IEnumerable<SelectListItem>)</td>
+    </tr>
+    <tr>
+        <td>Fecha Alerta</td>
+        <td>@Html.TextBoxFor(x => x.FechaAlerta)</td>
+    </tr>
+    <tr>
+        <td><button type="submit">Generar Alerta</button></td>
+    </tr>
+</table>
+}
+
+

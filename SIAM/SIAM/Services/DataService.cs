@@ -79,5 +79,11 @@ namespace SIAM.Services
             }
 
         }
+
+        public void GuardarAlerta(Alertas model) {
+            var bd = new SiamBD();
+            bd.Alertas.Add(model);
+            bd.SaveChanges();
+        }
     }
 }

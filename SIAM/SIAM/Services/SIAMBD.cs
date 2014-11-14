@@ -13,5 +13,7 @@ namespace SIAM.Services {
         }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Curso> Cursos { get; set; }
+        public DbSet<Alertas> Alertas { get; set; }
+        public DbSet<Notas> Notas { get; set; }
     }
 }

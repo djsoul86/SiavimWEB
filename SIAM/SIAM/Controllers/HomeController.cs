@@ -77,6 +77,29 @@ namespace SIAM.Controllers {
             svc.AsignarCursoUsuario(usuario, curso);
             return RedirectToAction("MostrarCursos");
         }
+        public enum TipoAlerta { CambioSalon, NoHayClase, FechaParcial, FechaTrabado}
+        public TipoAlerta InfoTypeLista { get; set; }
 
+        public ActionResult CrearAlerta() {
+            ViewData["Alertas"] = ExtEnums.ToSelectList(TipoAlerta.CambioSalon);
+            return View();
+        }
+
+        public ActionResult GuardarAlerta(Alertas model) {
+            var svc = new SIAM.Services.DataService();
+            svc.GuardarAlerta(model);
+            return RedirectToAction("CrearAlerta");
+        }
+
+    }
+
+    public static class ExtEnums {
+        public static SelectList ToSelectList<TEnum>(this TEnum enumObj) where TEnum : struct, IConvertible {
+            var typeName = typeof(TEnum).Name;
+            var values = from TEnum e in Enum.GetValues(typeof(TEnum))
+                         select new { Id = e.ToString(), Name = e.ToString() };
+
+            return new SelectList(values, "Id", "Name", enumObj);
+        }
     }
 }

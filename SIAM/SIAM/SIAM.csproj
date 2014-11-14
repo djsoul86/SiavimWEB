@@ -295,6 +295,7 @@
     <Content Include="Views\Home\CrearCurso.cshtml" />
     <Content Include="Views\Home\MostrarCursos.cshtml" />
     <Content Include="Views\Home\AsignarUsuarios.cshtml" />
+    <Content Include="Views\Home\CrearAlerta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

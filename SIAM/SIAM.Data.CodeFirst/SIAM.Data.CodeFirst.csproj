@@ -74,6 +74,26 @@
     <Compile Include="Migrations\201409041929425_siam6.Designer.cs">
       <DependentUpon>201409041929425_siam6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411140100393_siam7.cs" />
+    <Compile Include="Migrations\201411140100393_siam7.Designer.cs">
+      <DependentUpon>201411140100393_siam7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411140105010_siam8.cs" />
+    <Compile Include="Migrations\201411140105010_siam8.Designer.cs">
+      <DependentUpon>201411140105010_siam8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411140107558_siam9.cs" />
+    <Compile Include="Migrations\201411140107558_siam9.Designer.cs">
+      <DependentUpon>201411140107558_siam9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411140206381_siam10.cs" />
+    <Compile Include="Migrations\201411140206381_siam10.Designer.cs">
+      <DependentUpon>201411140206381_siam10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411140208426_siam11.cs" />
+    <Compile Include="Migrations\201411140208426_siam11.Designer.cs">
+      <DependentUpon>201411140208426_siam11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -112,6 +132,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409041929425_siam6.resx">
       <DependentUpon>201409041929425_siam6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411140100393_siam7.resx">
+      <DependentUpon>201411140100393_siam7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411140105010_siam8.resx">
+      <DependentUpon>201411140105010_siam8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411140107558_siam9.resx">
+      <DependentUpon>201411140107558_siam9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411140206381_siam10.resx">
+      <DependentUpon>201411140206381_siam10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411140208426_siam11.resx">
+      <DependentUpon>201411140208426_siam11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
