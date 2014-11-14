@@ -22,5 +22,6 @@ namespace SIAM.Model.Entities {
         public string Telefono { get; set; }
         
         public virtual Curso Curso { get; set; }
+        public virtual ICollection<Notas> Notas { get; set; }
     }
 }
