@@ -91,6 +91,20 @@ namespace SIAM.Controllers {
             return RedirectToAction("CrearAlerta");
         }
 
+        public ActionResult CrearNotas(string id) {
+            var svc = new SIAM.Services.DataService();
+            var usuario = svc.ObtenerUsuarioID(id);
+            ViewData["usuario"] = usuario.Nombres;
+            ViewData["cedula"] = usuario.Cedula;
+            return View();
+        }
+
+        public ActionResult GuardarNotas(Notas model) {
+            var svc = new SIAM.Services.DataService();
+            svc.GuardarNota(model);
+            return View();
+        }
+
     }
 
     public static class ExtEnums {

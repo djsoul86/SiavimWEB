@@ -8,12 +8,27 @@ using System.Threading.Tasks;
 
 namespace SIAM.Model.Entities {
     public class Notas {
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdCurso { get; set; }
+        public int IdNota { get; set; }
+        [Required]
         public DateTime FechaNota { get; set; }
+        [Required]
         public string NombreNota { get; set; }
+        [Required]
         public decimal Nota { get; set; }
-        
+        [Required]
+        public int Corte { get; set; }
+        [Required]
+        public int PorcentajeCorte { get; set; }
+        public string Cedula { get; set; }
+        public int IdCurso { get; set; }
+
+
+        //public virtual ICollection<Usuario> Usuarios { get; set; }
+        //public virtual ICollection<NotasUsuarios> NotasUsuarios { get; set; }
+        public virtual Curso Cursos { get; set; }
         public virtual Usuario Usuarios { get; set; }
+        //public virtual Curso Cursos { get; set; }
     }
 }

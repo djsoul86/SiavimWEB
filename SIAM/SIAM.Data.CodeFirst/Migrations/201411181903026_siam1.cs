@@ -3,7 +3,7 @@ namespace SIAM.Data.CodeFirst.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class siam8 : DbMigration
+    public partial class siam1 : DbMigration
     {
         public override void Up()
         {

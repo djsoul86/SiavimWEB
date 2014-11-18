@@ -32,7 +32,8 @@
             <td>@u.Carrera</td>
             <td>@u.Telefono</td>
             <td>@Html.ActionLink("Modificar", "ModificarUsuario", "Home", new {id = @u.Cedula },null)</td>
-            <td>@u.Curso.NombreCurso</td>
+            <td>@Html.ActionLink("AgregarNota","CrearNotas","Home", new {id= @u.Cedula }, null)</td>
+            <td>@u.IdCurso</td>
         </tr>
     }
 </table>

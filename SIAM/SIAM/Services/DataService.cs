@@ -55,7 +55,7 @@ namespace SIAM.Services
         }
         public List<Usuario> ObtenerUsuariosSinCursoAsociado(){
             var bd = new SiamBD();
-            var usuarios = (from c in bd.Usuarios where c.Curso.IdCurso == null select c).ToList();
+            var usuarios = (from c in bd.Usuarios where c.IdCurso == null select c).ToList();
             return usuarios;
         }
 
@@ -84,6 +84,17 @@ namespace SIAM.Services
             var bd = new SiamBD();
             bd.Alertas.Add(model);
             bd.SaveChanges();
+        }
+
+        public void GuardarNota(Notas model) {
+            try {
+                var bd = new SiamBD();
+                bd.Notas.Add(model);
+
+                bd.SaveChanges();
+            } catch (Exception ex) {
+
+            }
         }
     }
 }
