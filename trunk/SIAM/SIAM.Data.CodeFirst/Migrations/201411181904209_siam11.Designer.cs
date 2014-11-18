@@ -7,13 +7,13 @@ namespace SIAM.Data.CodeFirst.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class siam3 : IMigrationMetadata
+    public sealed partial class siam11 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(siam3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(siam11));
         
         string IMigrationMetadata.Id
         {
-            get { return "201408201909214_siam3"; }
+            get { return "201411181904209_siam11"; }
         }
         
         string IMigrationMetadata.Source

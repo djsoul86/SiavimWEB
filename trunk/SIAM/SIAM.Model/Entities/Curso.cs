@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 namespace SIAM.Model.Entities {
     public class Curso {
 
+        public Curso() {}
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdCurso { get; set; }
         [Required]
@@ -16,7 +18,12 @@ namespace SIAM.Model.Entities {
         [Required]
         public int IntensidadHoraria { get; set; }
 
-
         public virtual ICollection<Usuario> Usuarios { get; set; }
+        public virtual ICollection<Notas> Notas { get; set; }
+        //public virtual ICollection<Usuario> Usuarios { get; set; }
+        //public virtual ICollection<Notas> Notas { get; set; }
+        //public virtual ICollection<CursosUsuarios> CursosUsuarios { get; set; }
+        //public virtual ICollection<Usuario> Usuarios { get; set; }
+        
     }
 }

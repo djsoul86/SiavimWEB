@@ -1,0 +1,60 @@
+﻿@model SIAM.Model.Entities.Notas
+@{
+    ViewBag.Title = "CrearNotas";
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#guardarNota").click(function () {
+                $("#Cedula").val($("#lblusuario").text());
+                $("#Cedula").val($("#lblcedula").text());
+            });
+        });
+    </script>
+}
+
+<h2>Crear Notas</h2>
+
+@using (Html.BeginForm("GuardarNotas","Home")){
+<table>
+    @*<tr>
+        <td>Estudiante</td>
+        <td>@Html.LabelFor(x => x.Usuarios.Nombres, ViewData["usuario"] as string, new {id="lblusuario"})</td>
+    </tr>*@
+    <tr>
+        <td>Cedula</td>
+        <td>@Html.LabelFor(x => x.Cedula, ViewData["cedula"] as string, new {id="lblcedula"})</td>
+    </tr>
+    @Html.HiddenFor(x => x.Cedula, ViewData["cedula"] as string)
+    <tr>
+        <td>Fecha Nota:</td>
+        <td>@Html.TextBoxFor(x => x.FechaNota)</td>
+    </tr>
+    <tr>
+        <td>Nombre Nota:</td>
+        <td>@Html.TextBoxFor(x => x.NombreNota)</td>
+    </tr>
+    <tr>
+        <td>Nota</td>
+        <td>@Html.TextBoxFor(x => x.Nota)</td>
+    </tr>
+    <tr>
+        <td>Porcentaje Nota Corte:</td>
+        <td>@Html.TextBoxFor(x => x.PorcentajeCorte)</td>
+    </tr>
+    <tr>
+        <td>Corte</td>
+        <td>@Html.TextBoxFor(x => x.Corte)</td>
+    </tr>
+    <tr>
+        <td>Curso:</td>
+        <td>@Html.TextBoxFor(x => x.IdCurso)</td>
+    </tr>
+    <tr>
+        <td><button id="guardarNota" type="submit">Guardar Nota</button></td>
+    </tr>
+</table>
+}
+
+

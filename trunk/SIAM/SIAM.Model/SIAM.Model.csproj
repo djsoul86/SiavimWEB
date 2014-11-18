@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="Entities\Alertas.cs" />
     <Compile Include="Entities\Curso.cs" />
+    <Compile Include="Entities\CursosUsuarios.cs" />
     <Compile Include="Entities\Notas.cs" />
+    <Compile Include="Entities\NotasUsuarios.cs" />
     <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
