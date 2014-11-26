@@ -148,4 +148,3 @@ C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.dll
 C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.pdb
 C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.Migrations.siam1.resources
 C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.csproj.GenerateResource.Cache
-C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.Migrations.siam11.resources

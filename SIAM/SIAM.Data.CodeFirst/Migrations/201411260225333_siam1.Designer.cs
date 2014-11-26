@@ -13,7 +13,7 @@ namespace SIAM.Data.CodeFirst.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201411181903026_siam1"; }
+            get { return "201411260225333_siam1"; }
         }
         
         string IMigrationMetadata.Source

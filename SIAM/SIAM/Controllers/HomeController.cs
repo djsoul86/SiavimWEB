@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SIAM.Model.Entities;
+using WebMatrix.WebData;
 
 namespace SIAM.Controllers {
     public class HomeController : Controller {
@@ -66,7 +67,7 @@ namespace SIAM.Controllers {
 
         public ActionResult AsignarUsuarios(int Id) {
             var svc = new SIAM.Services.DataService();
-            ViewData["usuarios"] = svc.ObtenerUsuariosSinCursoAsociado();
+            ViewData["usuarios"] = svc.ObtenerUsuariosSinCursoAsociado(Id);
             var curso = svc.ObtenerCursoPorId(Id);
             ViewData["curso"] = curso.NombreCurso;
             return View();
@@ -87,6 +88,8 @@ namespace SIAM.Controllers {
 
         public ActionResult GuardarAlerta(Alertas model) {
             var svc = new SIAM.Services.DataService();
+            model.FechaCreacionAlerta = DateTime.Now;
+            model.UsuarioCreacion = WebSecurity.CurrentUserId.ToString(); 
             svc.GuardarAlerta(model);
             return RedirectToAction("CrearAlerta");
         }

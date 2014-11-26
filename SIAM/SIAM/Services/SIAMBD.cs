@@ -38,72 +38,18 @@ namespace SIAM.Services {
                 .HasForeignKey(x => x.Cedula)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Alertas>()
+                .HasRequired(x => x.Cursos)
+                .WithMany(x => x.Alertas)
+                .HasForeignKey(x => x.IdCurso)
+                .WillCascadeOnDelete(false);
 
-                //.HasOptional(x => x.Usuarios)
-                //.WithMany(x => x.Notas)
-                //.HasForeignKey(x => new { x.Cedula, x.IdCurso })
-                //.WillCascadeOnDelete(false);
-
-
-            //modelBuilder.Entity<Usuario>()
-            //    .HasMany(x => x.Curso)
-            //    .WithOptional()
-            //    .HasForeignKey(x => x.Cedula)
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Usuario>()
-            //    .HasOptional(x => x.Curso)
-            //    .WithMany()
-            //    .HasForeignKey(x => x.IdCurso)
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Silabo>()
+                .HasRequired(x => x.Curso)
+                .WithMany()
+                .HasForeignKey(x => x.IdCurso)
+                .WillCascadeOnDelete(false);
                 
-
-            //modelBuilder.Entity<Curso>()
-            //    .HasMany(x => x.Usuarios)
-            //    .WithOptional()
-            //    .HasForeignKey(x => x.IdCurso)
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Curso>()
-            //    .HasOptional(x => x.Usuario)
-            //    .WithMany()
-            //    .HasForeignKey(x => x.IdCurso)
-            //    .WillCascadeOnDelete(false);
-                
-
-            //modelBuilder.Entity<NotasUsuarios>().HasKey(c => new { c.UsuarioId, c.IdNota });
-            //modelBuilder.Entity<CursosUsuarios>().HasKey(c => new { c.UsuarioId, c.IdCurso });
-
-            //modelBuilder.Entity<Usuario>()
-            //    .HasMany(c => c.NotasUsuarios)
-            //    .WithRequired()
-            //    .HasForeignKey(c => c.UsuarioId)
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Notas>()
-            //    .HasMany(c => c.NotasUsuarios)
-            //    .WithRequired()
-            //    .HasForeignKey(c => c.IdNota)
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Curso>()
-            //    .HasMany(c => c.CursosUsuarios)
-            //    .WithRequired()
-            //    .HasForeignKey(c => c.IdCurso)
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Curso>().HasMany(s => s.Notas).WithRequired()
-            //    .HasForeignKey(s => s.IdCurso).WillCascadeOnDelete(false);
-
-            //modelBuilder.Configurations.Add<Usuario>(new UsuariosConfig());
         }
     }
-
-    //internal class UsuariosConfig : EntityTypeConfiguration<Usuario> {
-    //    internal UsuariosConfig() {
-    //        this.HasRequired(x => x
-                
-
-    //    }
-    //}
 }

@@ -15,5 +15,10 @@ namespace SIAM.Model.Entities {
         public string TipoAlerta { get; set; }
         [Required]
         public DateTime FechaAlerta { get; set; }
+        public DateTime FechaCreacionAlerta { get; set; }
+        public string UsuarioCreacion { get; set; }
+        public int IdCurso { get; set; }
+
+        public virtual Curso Cursos { get; set; }
     }
 }
