@@ -20,10 +20,11 @@ namespace SIAM.Model.Entities {
 
         public virtual ICollection<Usuario> Usuarios { get; set; }
         public virtual ICollection<Notas> Notas { get; set; }
-        //public virtual ICollection<Usuario> Usuarios { get; set; }
-        //public virtual ICollection<Notas> Notas { get; set; }
-        //public virtual ICollection<CursosUsuarios> CursosUsuarios { get; set; }
-        //public virtual ICollection<Usuario> Usuarios { get; set; }
+        public virtual ICollection<Alertas> Alertas { get; set; }
+
+        public virtual Silabo Silabo { get; set; }
+        //public virtual ICollection<Silabo> Silabo { get; set; }
+        
         
     }
 }

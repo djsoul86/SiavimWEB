@@ -53,10 +53,11 @@ namespace SIAM.Services
             var cursos = (from c in bd.Cursos select c).ToList();
             return cursos;
         }
-        public List<Usuario> ObtenerUsuariosSinCursoAsociado(){
+        public List<Usuario> ObtenerUsuariosSinCursoAsociado(int id){
             var bd = new SiamBD();
-            var usuarios = (from c in bd.Usuarios where c.IdCurso == null select c).ToList();
-            return usuarios;
+            var usuarios = (from c in bd.Usuarios where c.IdCurso == id select c.Cedula).ToList();
+            var result = (from c in bd.Usuarios where !usuarios.Contains(c.Cedula)select c).ToList();
+            return result;
         }
 
         public Curso ObtenerCursoPorId(int Id) {
