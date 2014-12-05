@@ -53,10 +53,10 @@ namespace SIAM.Services
             var cursos = (from c in bd.Cursos select c).ToList();
             return cursos;
         }
-        public List<Usuario> ObtenerUsuariosSinCursoAsociado(int id){
+        public List<Usuario> ObtenerUsuariosSinCursoAsociado(int id) {
             var bd = new SiamBD();
             var usuarios = (from c in bd.Usuarios where c.IdCurso == id select c.Cedula).ToList();
-            var result = (from c in bd.Usuarios where !usuarios.Contains(c.Cedula)select c).ToList();
+            var result = (from c in bd.Usuarios where !usuarios.Contains(c.Cedula) select c).ToList();
             return result;
         }
 
@@ -95,6 +95,16 @@ namespace SIAM.Services
                 bd.SaveChanges();
             } catch (Exception ex) {
 
+            }
+        }
+
+        public bool ValidarEstudiante(string cedula, string password) {
+            var bd = new SiamBD();
+            var usuario = bd.Usuarios.Find(cedula);
+            if (usuario.Password != null && usuario.Password == password) {
+                return true;
+            } else {
+                return false;
             }
         }
     }
