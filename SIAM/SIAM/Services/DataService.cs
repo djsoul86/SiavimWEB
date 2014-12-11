@@ -98,13 +98,13 @@ namespace SIAM.Services
             }
         }
 
-        public bool ValidarEstudiante(string cedula, string password) {
+        public Usuario ValidarEstudiante(string cedula, string password) {
             var bd = new SiamBD();
             var usuario = bd.Usuarios.Find(cedula);
             if (usuario.Password != null && usuario.Password == password) {
-                return true;
+                return usuario;
             } else {
-                return false;
+                return null;
             }
         }
     }
