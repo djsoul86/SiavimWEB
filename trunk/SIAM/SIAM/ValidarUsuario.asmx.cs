@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Services;
+using System.Web.Script.Serialization;
+using System.Web.Mvc;
 
 namespace SIAM {
     /// <summary>
@@ -22,9 +24,17 @@ namespace SIAM {
         }
 
         [WebMethod]
-        public bool ValidarEstudiante(string cedula, string password) {
+        public string ValidarEstudiante(string cedula, string password) {
             var svc = new SIAM.Services.DataService();
-            return svc.ValidarEstudiante(cedula, password);
+            var usuario = svc.ValidarEstudiante(cedula, password);
+            var json = "";
+            if (usuario == null) {
+                json = "false";
+            }else{
+                json = new JavaScriptSerializer().Serialize(usuario);
+            }
+                
+            return json;
         }
 
         [WebMethod]
