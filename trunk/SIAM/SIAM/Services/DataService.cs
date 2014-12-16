@@ -107,5 +107,16 @@ namespace SIAM.Services
                 return null;
             }
         }
+
+        public void ModificarEstudiante(string nombre, string apellidos, string telefono, string email, string password, string cedula) {
+            var bd = new SiamBD();
+            var usuario = bd.Usuarios.Find(cedula);
+            usuario.Nombres = nombre;
+            usuario.Apellidos = apellidos;
+            usuario.Telefono = telefono;
+            usuario.Email = email;
+            usuario.Password = password;
+            bd.SaveChanges();
+        }
     }
 }

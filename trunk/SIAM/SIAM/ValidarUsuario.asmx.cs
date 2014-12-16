@@ -38,7 +38,9 @@ namespace SIAM {
         }
 
         [WebMethod]
-        public void ModificarDatosEstudiante(string objeto) {
+        public void ModificarEstudiante(string nombre,string apellidos,string telefono, string email,string password,string cedula) {
+            var svc = new SIAM.Services.DataService();
+            svc.ModificarEstudiante(nombre, apellidos, telefono, email, password, cedula);
         }
     }
 }
