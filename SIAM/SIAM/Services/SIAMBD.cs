@@ -16,6 +16,7 @@ namespace SIAM.Services {
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Alertas> Alertas { get; set; }
         public DbSet<Notas> Notas { get; set; }
+        public DbSet<Horarios> Horarios { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
@@ -41,6 +42,12 @@ namespace SIAM.Services {
             modelBuilder.Entity<Alertas>()
                 .HasRequired(x => x.Cursos)
                 .WithMany(x => x.Alertas)
+                .HasForeignKey(x => x.IdCurso)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Horarios>()
+                .HasRequired(x => x.Cursos)
+                .WithMany(x => x.Horarios)
                 .HasForeignKey(x => x.IdCurso)
                 .WillCascadeOnDelete(false);
 

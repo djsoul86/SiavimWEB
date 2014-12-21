@@ -1,0 +1,47 @@
+﻿@model SIAM.Model.Entities.Horarios
+@{
+    ViewBag.Title = "CrearHorario";
+}
+
+<h2>CrearHorario</h2>
+
+@using (Html.BeginForm("GuardarHorarioCurso","Home")){
+<table>
+    <thead>
+        <tr>
+            <th>Curso</th>
+            <th>Lunes Inicio:</th>
+            <th>Lunes Fin:</th>
+            <th>Martes Inicio:</th>
+            <th>Martes Fin:</th>
+            <th>Miercoles Inicio:</th>
+            <th>Miercoles Fin:</th>
+            <th>Jueves Inicio:</th>
+            <th>Jueves Fin:</th>
+            <th>Viernes Inicio:</th>
+            <th>Viernes Fin:</th>
+            <th>Sabado Inicio:</th>
+            <th>Sabado Fin:</th>
+        </tr>
+    </thead>
+    <tr>
+        <td>@Html.DropDownListFor(x => x.IdCurso,ViewData["Cursos"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.LunesInicio,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.LunesFin,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.MartesInicio,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.MartesFin,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.MiercolesInicio,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.MiercolesFin,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.JuevesInicio,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.JuevesFin,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.ViernesInicio,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.ViernesFin,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.SabadoInicio,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+        <td>@Html.DropDownListFor(x => x.SabadoFin,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
+    </tr>
+    <tr>
+        <td><button type="submit">Guardar Horario</button></td>
+    </tr>
+</table>
+
+}

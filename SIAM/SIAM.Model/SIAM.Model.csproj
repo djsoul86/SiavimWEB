@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Entities\Alertas.cs" />
     <Compile Include="Entities\Curso.cs" />
+    <Compile Include="Entities\Horarios.cs" />
     <Compile Include="Entities\Notas.cs" />
     <Compile Include="Entities\Silabo.cs" />
     <Compile Include="Entities\Usuario.cs" />

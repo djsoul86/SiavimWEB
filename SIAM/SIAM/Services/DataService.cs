@@ -98,10 +98,10 @@ namespace SIAM.Services
             }
         }
 
-        public Usuario ValidarEstudiante(string cedula, string password) {
+        public object ValidarEstudiante(string cedula, string password) {
             var bd = new SiamBD();
-            var usuario = bd.Usuarios.Find(cedula);
-            if (usuario.Password != null && usuario.Password == password) {
+            var usuario = (from c in bd.Usuarios where c.Cedula == cedula && c.Password == password select new { c.Apellidos, c.Nombres, c.Cedula, c.Email, c.Carrera, c.Password, c.Telefono }).FirstOrDefault();
+            if (usuario != null) {
                 return usuario;
             } else {
                 return null;
@@ -116,6 +116,26 @@ namespace SIAM.Services
             usuario.Telefono = telefono;
             usuario.Email = email;
             usuario.Password = password;
+            bd.SaveChanges();
+        }
+
+        public List<Curso> ObtenerCursosPorIdProfesor(string id) {
+            var bd = new SiamBD();
+            var cursos = (from c in bd.Cursos where c.IdProfesor == id select c).ToList();
+            return cursos;
+        }
+
+        public object ObtenerCursosPorIdEstudiante(string cedula) {
+            var bd = new SiamBD();
+            var cursos = (from c in bd.Usuarios where c.Cedula == cedula select c.IdCurso);
+            var listaCursos = (from c in bd.Cursos where cursos.Contains(c.IdCurso) select new {c.NombreCurso,c.IdProfesor,c.IntensidadHoraria, c.Horarios }).ToList();
+            return listaCursos;
+            
+        }
+
+        public void GuardarHorarioCurso(Horarios model) {
+            var bd = new SiamBD();
+            bd.Horarios.Add(model);
             bd.SaveChanges();
         }
     }

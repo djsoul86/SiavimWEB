@@ -118,6 +118,7 @@ C:\RepositorioTesis\SIAM\SIAM\bin\DotNetOpenAuth.OpenId.dll
 C:\RepositorioTesis\SIAM\SIAM\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
 C:\RepositorioTesis\SIAM\SIAM\bin\EntityFramework.dll
 C:\RepositorioTesis\SIAM\SIAM\bin\EntityFramework.SqlServer.dll
+C:\RepositorioTesis\SIAM\SIAM\bin\Microsoft.AspNet.Identity.Core.dll
 C:\RepositorioTesis\SIAM\SIAM\bin\Microsoft.Data.Edm.dll
 C:\RepositorioTesis\SIAM\SIAM\bin\Microsoft.Data.OData.dll
 C:\RepositorioTesis\SIAM\SIAM\bin\Microsoft.Web.Infrastructure.dll
@@ -151,6 +152,7 @@ C:\RepositorioTesis\SIAM\SIAM\bin\DotNetOpenAuth.OpenId.xml
 C:\RepositorioTesis\SIAM\SIAM\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 C:\RepositorioTesis\SIAM\SIAM\bin\EntityFramework.xml
 C:\RepositorioTesis\SIAM\SIAM\bin\EntityFramework.SqlServer.xml
+C:\RepositorioTesis\SIAM\SIAM\bin\Microsoft.AspNet.Identity.Core.xml
 C:\RepositorioTesis\SIAM\SIAM\bin\Microsoft.Data.Edm.xml
 C:\RepositorioTesis\SIAM\SIAM\bin\Microsoft.Data.OData.xml
 C:\RepositorioTesis\SIAM\SIAM\bin\Microsoft.Web.WebPages.OAuth.xml

@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using SIAM.Model.Entities;
 using WebMatrix.WebData;
 
+
 namespace SIAM.Controllers {
     public class HomeController : Controller {
+        public enum TipoAlerta { CambioSalon, NoHayClase, FechaParcial, FechaTrabado }
+        public TipoAlerta InfoTypeLista { get; set; }
+        
         public ActionResult Index() {
             
             return View();
@@ -55,6 +60,9 @@ namespace SIAM.Controllers {
 
         public ActionResult GuardarCurso(Curso model) {
             var svc = new SIAM.Services.DataService();
+            MembershipUser membershipUser = Membership.GetUser();
+            string UserID = membershipUser.ProviderUserKey.ToString();
+            model.IdProfesor = UserID;
             svc.GuardarCurso(model);
             return View("Index");
         }
@@ -78,8 +86,7 @@ namespace SIAM.Controllers {
             svc.AsignarCursoUsuario(usuario, curso);
             return RedirectToAction("MostrarCursos");
         }
-        public enum TipoAlerta { CambioSalon, NoHayClase, FechaParcial, FechaTrabado}
-        public TipoAlerta InfoTypeLista { get; set; }
+        
 
         public ActionResult CrearAlerta() {
             ViewData["Alertas"] = ExtEnums.ToSelectList(TipoAlerta.CambioSalon);
@@ -106,6 +113,23 @@ namespace SIAM.Controllers {
             var svc = new SIAM.Services.DataService();
             svc.GuardarNota(model);
             return View();
+        }
+
+        public ActionResult CrearHorario() {
+            var svc = new SIAM.Services.DataService();
+            List<int> lista = new List<int>();
+            for (int i = 7; i < 23; i++) {
+                lista.Add(i);
+            }
+            ViewData["Horas"] = (new SelectListItem[] { new SelectListItem { Value = "", Text = "" } }).Union(lista.Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }));
+            ViewData["Cursos"] = svc.ObtenerCursosPorIdProfesor(WebSecurity.CurrentUserId.ToString()).Select(x => new SelectListItem { Text = x.NombreCurso, Value = x.IdCurso.ToString()});
+            return View();
+        }
+
+        public ActionResult GuardarHorarioCurso(Horarios model) {
+            var svc = new SIAM.Services.DataService();
+            svc.GuardarHorarioCurso(model);
+            return RedirectToAction("CrearHorario");
         }
 
     }
