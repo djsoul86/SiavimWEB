@@ -50,6 +50,26 @@
     <Compile Include="Migrations\201411260225333_siam1.Designer.cs">
       <DependentUpon>201411260225333_siam1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412181923005_siam2.cs" />
+    <Compile Include="Migrations\201412181923005_siam2.Designer.cs">
+      <DependentUpon>201412181923005_siam2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412181930475_siam3.cs" />
+    <Compile Include="Migrations\201412181930475_siam3.Designer.cs">
+      <DependentUpon>201412181930475_siam3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412181943278_siam4.cs" />
+    <Compile Include="Migrations\201412181943278_siam4.Designer.cs">
+      <DependentUpon>201412181943278_siam4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412202058096_siam41.cs" />
+    <Compile Include="Migrations\201412202058096_siam41.Designer.cs">
+      <DependentUpon>201412202058096_siam41.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412211746441_siam5.cs" />
+    <Compile Include="Migrations\201412211746441_siam5.Designer.cs">
+      <DependentUpon>201412211746441_siam5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,6 +93,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201411260225333_siam1.resx">
       <DependentUpon>201411260225333_siam1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412181923005_siam2.resx">
+      <DependentUpon>201412181923005_siam2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412181930475_siam3.resx">
+      <DependentUpon>201412181930475_siam3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412181943278_siam4.resx">
+      <DependentUpon>201412181943278_siam4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412202058096_siam41.resx">
+      <DependentUpon>201412202058096_siam41.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412211746441_siam5.resx">
+      <DependentUpon>201412211746441_siam5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
