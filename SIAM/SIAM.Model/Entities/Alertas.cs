@@ -19,6 +19,6 @@ namespace SIAM.Model.Entities {
         public string UsuarioCreacion { get; set; }
         public int IdCurso { get; set; }
 
-        public virtual Curso Cursos { get; set; }
+        public virtual Cursos Cursos { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace SIAM.Model.Entities {
     public class Usuario {
 
+       
         [Required]
         public string Nombres { get; set; }
         [Required]
@@ -20,10 +21,13 @@ namespace SIAM.Model.Entities {
         public string Carrera { get; set; }
         [MaxLength(15)]
         public string Telefono { get; set; }
-        public int? IdCurso { get; set; }
+        //public int? IdCurso { get; set; }
 
-        public virtual Curso Curso { get; set; }
+        //public virtual Curso Curso { get; set; }
+        public ICollection<CursosUsuarios> CursosUsuarios { get; set; }
+        //public ICollection<Cursos> Cursos { get; set; }
         public virtual ICollection<Notas> Notas { get; set; }
+
         
     }
 }

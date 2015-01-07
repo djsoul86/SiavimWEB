@@ -27,7 +27,8 @@ namespace SIAM.Model.Entities {
         public string ViernesFin { get; set; }
         public string SabadoInicio { get; set; }
         public string SabadoFin { get; set; }
-        public Curso Cursos { get; set; }
+
+        public virtual Cursos Cursos { get; set; }
 
     }
 }

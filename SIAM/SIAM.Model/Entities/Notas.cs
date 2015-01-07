@@ -27,7 +27,7 @@ namespace SIAM.Model.Entities {
 
         //public virtual ICollection<Usuario> Usuarios { get; set; }
         //public virtual ICollection<NotasUsuarios> NotasUsuarios { get; set; }
-        public virtual Curso Cursos { get; set; }
+        public virtual Cursos Cursos { get; set; }
         public virtual Usuario Usuarios { get; set; }
         //public virtual Curso Cursos { get; set; }
     }

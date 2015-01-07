@@ -20,7 +20,6 @@
             <th>Carrera</th>
             <th>Telefono</th>
             <th colspan="2" style="text-align:center">Acciones</th>
-            <th>Curso Asociado</th>
         </tr>
     </thead>
     @foreach (SIAM.Model.Entities.Usuario u in data) {
@@ -33,7 +32,6 @@
             <td>@u.Telefono</td>
             <td>@Html.ActionLink("Modificar", "ModificarUsuario", "Home", new {id = @u.Cedula },null)</td>
             <td>@Html.ActionLink("AgregarNota","CrearNotas","Home", new {id= @u.Cedula }, null)</td>
-            <td>@u.IdCurso</td>
         </tr>
     }
 </table>

@@ -11,9 +11,11 @@ namespace SIAM.Model.Entities {
 
     [Serializable]
     [DataContract(IsReference = true)]
-    public class Curso {
+    public class Cursos {
 
-        public Curso() {}
+        //public Cursos() {
+        //    HorariosList = new List<Horarios>();
+        //}
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdCurso { get; set; }
@@ -22,11 +24,12 @@ namespace SIAM.Model.Entities {
         [Required]
         public int IntensidadHoraria { get; set; }
         public string IdProfesor { get; set; }
-        public virtual ICollection<Usuario> Usuarios { get; set; }
+        
+        //public ICollection<Usuario> Usuarios { get; set; }
         public virtual ICollection<Notas> Notas { get; set; }
         public virtual ICollection<Alertas> Alertas { get; set; }
         public virtual ICollection<Horarios> Horarios { get; set; }
-
+        public ICollection<CursosUsuarios> CursosUsuarios { get; set; }
         public virtual Silabo Silabo { get; set; }
         //public virtual ICollection<Silabo> Silabo { get; set; }
         
