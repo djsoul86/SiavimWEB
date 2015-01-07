@@ -21,7 +21,7 @@ namespace SIAM.Model.Entities {
         public string Bibliografia { get; set; }
         public int IdCurso { get; set; }
         
-        public virtual Curso Curso { get; set; }
+        public virtual Cursos Curso { get; set; }
 
     }
 }

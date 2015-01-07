@@ -4,6 +4,5 @@ C:\Ernesto\ProyectoSIAM\SIAM\SIAM.Model\obj\Debug\SIAM.Model.dll
 C:\Ernesto\ProyectoSIAM\SIAM\SIAM.Model\obj\Debug\SIAM.Model.pdb
 C:\RepositorioTesis\SIAM\SIAM.Model\bin\Debug\SIAM.Model.dll
 C:\RepositorioTesis\SIAM\SIAM.Model\bin\Debug\SIAM.Model.pdb
-C:\RepositorioTesis\SIAM\SIAM.Model\obj\Debug\SIAM.Model.csprojResolveAssemblyReference.cache
 C:\RepositorioTesis\SIAM\SIAM.Model\obj\Debug\SIAM.Model.dll
 C:\RepositorioTesis\SIAM\SIAM.Model\obj\Debug\SIAM.Model.pdb

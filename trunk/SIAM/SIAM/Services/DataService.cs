@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using SIAM.Model.Entities;
 using SIAM.Services;
 
-namespace SIAM.Services
-{
+namespace SIAM.Services {
     public class DataService {
         public void GuardarUsuario(Usuario model) {
             try {
@@ -42,25 +41,25 @@ namespace SIAM.Services
             bd.SaveChanges();
         }
 
-        public void GuardarCurso(Curso model) {
+        public void GuardarCurso(Cursos model) {
             var bd = new SiamBD();
             bd.Cursos.Add(model);
             bd.SaveChanges();
         }
 
-        public List<Curso> ObtenerCursos() {
+        public List<Cursos> ObtenerCursos() {
             var bd = new SiamBD();
             var cursos = (from c in bd.Cursos select c).ToList();
             return cursos;
         }
         public List<Usuario> ObtenerUsuariosSinCursoAsociado(int id) {
             var bd = new SiamBD();
-            var usuarios = (from c in bd.Usuarios where c.IdCurso == id select c.Cedula).ToList();
+            var usuarios = (from c in bd.CursosUsuarios where c.CursoId == id select c.CedulaId).ToList();
             var result = (from c in bd.Usuarios where !usuarios.Contains(c.Cedula) select c).ToList();
             return result;
         }
 
-        public Curso ObtenerCursoPorId(int Id) {
+        public Cursos ObtenerCursoPorId(int Id) {
             var bd = new SiamBD();
             var curso = bd.Cursos.Find(Id);
             return curso;
@@ -71,10 +70,16 @@ namespace SIAM.Services
                 var bd = new SiamBD();
                 var cur = (from c in bd.Cursos where c.NombreCurso == curso select c).First();
                 string[] aux = usuarios.Split('|');
-                var users = (from c in bd.Usuarios where aux.Contains(c.Cedula) select c).ToList();
-                foreach (var j in users) {
-                    j.Curso = cur;
+                for (int i = 0; i < aux.Length; i++) {
+                    CursosUsuarios cu = new CursosUsuarios();
+                    cu.CursoId = cur.IdCurso;
+                    cu.CedulaId = aux[i];
+                    bd.CursosUsuarios.Add(cu);
                 }
+                //var users = (from c in bd.Usuarios where aux.Contains(c.Cedula) select c).ToList();
+                //foreach (var j in users) {
+                //    //j.Curso = cur;
+                //}
                 bd.SaveChanges();
             } catch (Exception ex) {
             }
@@ -119,7 +124,7 @@ namespace SIAM.Services
             bd.SaveChanges();
         }
 
-        public List<Curso> ObtenerCursosPorIdProfesor(string id) {
+        public List<Cursos> ObtenerCursosPorIdProfesor(string id) {
             var bd = new SiamBD();
             var cursos = (from c in bd.Cursos where c.IdProfesor == id select c).ToList();
             return cursos;
@@ -127,10 +132,43 @@ namespace SIAM.Services
 
         public object ObtenerCursosPorIdEstudiante(string cedula) {
             var bd = new SiamBD();
-            var cursos = (from c in bd.Usuarios where c.Cedula == cedula select c.IdCurso);
-            var listaCursos = (from c in bd.Cursos where cursos.Contains(c.IdCurso) select new {c.NombreCurso,c.IdProfesor,c.IntensidadHoraria, c.Horarios }).ToList();
+            var cursos = (from c in bd.CursosUsuarios where c.CedulaId == cedula select c.CursoId).ToList();
+            var listaCursos = (from c in bd.Cursos where cursos.Contains(c.IdCurso) select c).ToList();
+            foreach (var j in listaCursos) {
+                var p = (from c in bd.Horarios where c.IdCurso == j.IdCurso select c).ToList();
+                var ca = p.Select(x => new {
+                    LunesInicio = x.LunesInicio,
+                    LunesFin = x.LunesFin,
+                    MartesInicio = x.MartesInicio,
+                    MartesFin = x.MartesFin,
+                    MiercolesInicio = x.MiercolesInicio,
+                    MiercolesFin = x.MiercolesFin,
+                    JuevesInicio = x.JuevesInicio,
+                    JuevesFin = x.JuevesFin,
+                    ViernesInicio = x.ViernesInicio,
+                    ViernesFin = x.ViernesFin,
+                    SabadoInicio = x.SabadoInicio,
+                    SabadoFin = x.SabadoFin
+                }).First();
+                Horarios h = new Horarios {
+                    LunesInicio = ca.LunesInicio,
+                    LunesFin = ca.LunesFin,
+                    MartesInicio = ca.MartesInicio,
+                    MartesFin = ca.MartesFin,
+                    MiercolesInicio = ca.MiercolesInicio,
+                    MiercolesFin = ca.MiercolesFin,
+                    JuevesInicio = ca.JuevesInicio,
+                    JuevesFin = ca.JuevesFin,
+                    ViernesInicio = ca.ViernesInicio,
+                    ViernesFin = ca.ViernesFin,
+                    SabadoInicio = ca.SabadoInicio,
+                    SabadoFin = ca.SabadoFin
+                };
+                j.Horarios.Add(h);
+                
+            }
             return listaCursos;
-            
+
         }
 
         public void GuardarHorarioCurso(Horarios model) {

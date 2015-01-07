@@ -58,7 +58,7 @@ namespace SIAM.Controllers {
             return View();
         }
 
-        public ActionResult GuardarCurso(Curso model) {
+        public ActionResult GuardarCurso(Cursos model) {
             var svc = new SIAM.Services.DataService();
             MembershipUser membershipUser = Membership.GetUser();
             string UserID = membershipUser.ProviderUserKey.ToString();

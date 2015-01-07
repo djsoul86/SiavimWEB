@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "MostrarCursos";
-    var data = ViewData["cursos"] as List<SIAM.Model.Entities.Curso>;
+    var data = ViewData["cursos"] as List<SIAM.Model.Entities.Cursos>;
 }
 
 <h2>MostrarCursos</h2>
@@ -15,7 +15,7 @@
             <th colspan="2">Acciones</th>
         </tr>
     </thead>
-    @foreach (SIAM.Model.Entities.Curso u in data) {
+    @foreach (SIAM.Model.Entities.Cursos u in data) {
         <tr>
             <td>@u.NombreCurso</td>
             <td>@u.IntensidadHoraria</td>
