@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using SIAM.Model.Entities;
 using SIAM.Services;
+using WebMatrix.WebData;
 
 namespace SIAM.Services {
     public class DataService {
@@ -20,7 +22,9 @@ namespace SIAM.Services {
 
         public List<Usuario> ObtenerUsuarios() {
             var bd = new SIAM.Services.SiamBD();
-            var usuarios = (from c in bd.Usuarios select c).ToList();
+            var cursos = (from c in bd.Cursos where c.IdProfesor == WebSecurity.CurrentUserId.ToString() select c.IdCurso).ToList();
+            var users = (from c in bd.CursosUsuarios where cursos.Contains(c.CursoId) select c.CedulaId).ToList();
+            var usuarios = (from c in bd.Usuarios where users.Contains(c.Cedula) select c).ToList();
             return usuarios;
         }
 
@@ -130,10 +134,10 @@ namespace SIAM.Services {
             return cursos;
         }
 
-        public object ObtenerCursosPorIdEstudiante(string cedula) {
+        public object ObtenerCursosPorIdEstudiante(string cedula, string nombreCurso) {
             var bd = new SiamBD();
             var cursos = (from c in bd.CursosUsuarios where c.CedulaId == cedula select c.CursoId).ToList();
-            var listaCursos = (from c in bd.Cursos where cursos.Contains(c.IdCurso) select c).ToList();
+            var listaCursos = (from c in bd.Cursos where cursos.Contains(c.IdCurso) && c.NombreCurso == nombreCurso select c).ToList();
             foreach (var j in listaCursos) {
                 var p = (from c in bd.Horarios where c.IdCurso == j.IdCurso select c).ToList();
                 var ca = p.Select(x => new {
@@ -169,6 +173,17 @@ namespace SIAM.Services {
             }
             return listaCursos;
 
+        }
+
+        public string ObtenerNombresCursosPorCedula(string cedula) {
+            var bd = new SiamBD();
+            var cursos = (from c in bd.CursosUsuarios where c.CedulaId == cedula select c.CursoId).ToList();
+            var listaCursos = (from c in bd.Cursos where cursos.Contains(c.IdCurso) select c).ToList();
+            string nombres = "";
+            foreach (var j in listaCursos) {
+                nombres += j.NombreCurso + ",";
+            }
+            return nombres.TrimEnd(',');
         }
 
         public void GuardarHorarioCurso(Horarios model) {

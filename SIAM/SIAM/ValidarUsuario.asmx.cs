@@ -41,17 +41,17 @@ namespace SIAM {
         }
 
         [WebMethod]
-        public void ModificarEstudiante(string nombre,string apellidos,string telefono, string email,string password,string cedula) {
+        public void ModificarEstudiante(string nombre, string apellidos, string telefono, string email, string password, string cedula) {
             var svc = new SIAM.Services.DataService();
             svc.ModificarEstudiante(nombre, apellidos, telefono, email, password, cedula);
         }
 
         [WebMethod]
-        public string ObtenerCursoPorIdUsuario(string cedula) {
+        public string ObtenerCursoPorIdUsuario(string cedula, string nombreCurso) {
             var json = "";
             try {
                 var svc = new SIAM.Services.DataService();
-                var curso = svc.ObtenerCursosPorIdEstudiante(cedula);
+                var curso = svc.ObtenerCursosPorIdEstudiante(cedula,nombreCurso);
                 if (curso != null) {
                     json = new JavaScriptSerializer().Serialize(curso);
                 } else {
@@ -61,6 +61,13 @@ namespace SIAM {
                 json = ex.Message;
             }
             return json;
+        }
+
+        [WebMethod]
+        public string ObtenerNombreCurso(string cedula) {
+            var svc = new SIAM.Services.DataService();
+            string curso = svc.ObtenerNombresCursosPorCedula(cedula);
+            return curso;
         }
 
     }
