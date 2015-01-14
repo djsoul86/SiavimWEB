@@ -64,6 +64,24 @@ namespace SIAM {
         }
 
         [WebMethod]
+        public string ObtenerDatosCursoPorCedula(string cedula) {
+            var json = "";
+            try {
+                var svc = new SIAM.Services.DataService();
+                var curso = svc.ObtenerCursosPorCedula(cedula);
+                
+                if (curso != null) {
+                    json = new JavaScriptSerializer().Serialize(curso);
+                } else {
+                    json = "false";
+                }
+            } catch (Exception ex) {
+                json = ex.Message;
+            }
+            return json;
+        }
+
+        [WebMethod]
         public string ObtenerNombreCurso(string cedula) {
             var svc = new SIAM.Services.DataService();
             string curso = svc.ObtenerNombresCursosPorCedula(cedula);
