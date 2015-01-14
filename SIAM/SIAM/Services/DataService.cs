@@ -169,6 +169,70 @@ namespace SIAM.Services {
                     SabadoFin = ca.SabadoFin
                 };
                 j.Horarios.Add(h);
+                j.Notas = null;
+            }
+            return listaCursos;
+
+        }
+
+        public object ObtenerCursosPorCedula(string cedula) {
+            var bd = new SiamBD();
+            var cursos = (from c in bd.CursosUsuarios where c.CedulaId == cedula select c.CursoId).ToList();
+            var listaCursos = (from c in bd.Cursos where cursos.Contains(c.IdCurso) select c).ToList();
+            foreach (var j in listaCursos) {
+                var p = (from c in bd.Horarios where c.IdCurso == j.IdCurso select c).ToList();
+                var n = (from c in bd.Notas where c.IdNota == j.IdCurso select c).ToList();
+                var ca = p.Select(x => new {
+                    LunesInicio = x.LunesInicio,
+                    LunesFin = x.LunesFin,
+                    MartesInicio = x.MartesInicio,
+                    MartesFin = x.MartesFin,
+                    MiercolesInicio = x.MiercolesInicio,
+                    MiercolesFin = x.MiercolesFin,
+                    JuevesInicio = x.JuevesInicio,
+                    JuevesFin = x.JuevesFin,
+                    ViernesInicio = x.ViernesInicio,
+                    ViernesFin = x.ViernesFin,
+                    SabadoInicio = x.SabadoInicio,
+                    SabadoFin = x.SabadoFin
+                }).First();
+                Horarios h = new Horarios {
+                    LunesInicio = ca.LunesInicio,
+                    LunesFin = ca.LunesFin,
+                    MartesInicio = ca.MartesInicio,
+                    MartesFin = ca.MartesFin,
+                    MiercolesInicio = ca.MiercolesInicio,
+                    MiercolesFin = ca.MiercolesFin,
+                    JuevesInicio = ca.JuevesInicio,
+                    JuevesFin = ca.JuevesFin,
+                    ViernesInicio = ca.ViernesInicio,
+                    ViernesFin = ca.ViernesFin,
+                    SabadoInicio = ca.SabadoInicio,
+                    SabadoFin = ca.SabadoFin
+                };
+                if (n.Count > 0) {
+                    var not = n.Select(x => new {
+                        IdNota = x.IdNota,
+                        FechaNota = x.FechaNota,
+                        Nombre = x.NombreNota,
+                        Nota = x.Nota,
+                        Porcentaje = x.PorcentajeCorte,
+                        Corte = x.Corte
+                    }).First();
+
+                    Notas nota = new Notas {
+                        IdNota = not.IdNota,
+                        NombreNota = not.Nombre,
+                        FechaNota = not.FechaNota,
+                        Nota = not.Nota,
+                        PorcentajeCorte = not.Porcentaje
+                    };
+                    j.Notas.Add(nota);
+                }
+                j.Horarios.Add(h);
+                if (j.Notas != null) {
+                    j.Notas.Clear();
+                }
                 
             }
             return listaCursos;
