@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using SIAM.Model.Entities;
+using SIAM.Model.EntitiesService;
 using SIAM.Services;
 using WebMatrix.WebData;
 
@@ -254,6 +255,22 @@ namespace SIAM.Services {
             var bd = new SiamBD();
             bd.Horarios.Add(model);
             bd.SaveChanges();
+        }
+
+        public List<AlertasModel> ObtenerAlertas(string cedula) {
+            var bd = new SiamBD();
+            List<AlertasModel> list = new List<AlertasModel>();
+            var cursos = (from c in bd.CursosUsuarios where c.CedulaId == cedula select c.CursoId).ToList();
+            var alertas = (from c in bd.Alertas where cursos.Contains(c.IdCurso) select c).ToList();
+            foreach (var j in alertas) {
+                AlertasModel am = new AlertasModel();
+                am.IdAlerta = j.IdAlerta;
+                am.IdCurso = j.IdCurso;
+                am.TipoAlerta = j.TipoAlerta;
+                am.DetalleAlerta = j.TipoAlerta;
+                list.Add(am);
+            }
+            return list;
         }
     }
 }
