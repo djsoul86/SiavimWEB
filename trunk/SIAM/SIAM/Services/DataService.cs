@@ -257,11 +257,25 @@ namespace SIAM.Services {
             bd.SaveChanges();
         }
 
-        public List<AlertasModel> ObtenerAlertas(string cedula) {
+        public List<AlertasModel> ObtenerAlertas(string cedula,string idAlertas) {
             var bd = new SiamBD();
+            List<int> alerts = new List<int>();
+            if (idAlertas != "") {
+                string[] aux = idAlertas.Split(',');
+                if (aux.Length > 0) {
+                    for (int i = 0; i < aux.Length; i++) {
+                        alerts.Add(int.Parse(aux[i]));
+                    }
+                }
+            }
             List<AlertasModel> list = new List<AlertasModel>();
+            var alertas = new List<Alertas>();
             var cursos = (from c in bd.CursosUsuarios where c.CedulaId == cedula select c.CursoId).ToList();
-            var alertas = (from c in bd.Alertas where cursos.Contains(c.IdCurso) select c).ToList();
+            if (alerts.Count > 0) {
+                alertas = (from c in bd.Alertas where cursos.Contains(c.IdCurso) && alerts.Contains(c.IdAlerta) select c).ToList();
+            } else {
+                alertas = (from c in bd.Alertas where cursos.Contains(c.IdCurso) select c).ToList();
+            }
             foreach (var j in alertas) {
                 AlertasModel am = new AlertasModel();
                 am.IdAlerta = j.IdAlerta;
