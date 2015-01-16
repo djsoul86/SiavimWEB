@@ -89,11 +89,11 @@ namespace SIAM {
         }
 
         [WebMethod]
-        public string ObtenerAlertas(string cedula) {
+        public string ObtenerAlertas(string cedula, string idAlertas) {
             var svc = new SIAM.Services.DataService();
             var json = "";
             try {
-                var alertas = svc.ObtenerAlertas(cedula);
+                var alertas = svc.ObtenerAlertas(cedula,idAlertas);
                 
                 if (alertas != null) {
                     json = new JavaScriptSerializer().Serialize(alertas);
