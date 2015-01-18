@@ -293,7 +293,7 @@ namespace SIAM.Services {
             var alertas = new List<Alertas>();
             var cursos = (from c in bd.CursosUsuarios where c.CedulaId == cedula select c.CursoId).ToList();
             if (alerts.Count > 0) {
-                alertas = (from c in bd.Alertas where cursos.Contains(c.IdCurso) && alerts.Contains(c.IdAlerta) select c).ToList();
+                alertas = (from c in bd.Alertas where cursos.Contains(c.IdCurso) && !alerts.Contains(c.IdAlerta) select c).ToList();
             } else {
                 alertas = (from c in bd.Alertas where cursos.Contains(c.IdCurso) select c).ToList();
             }
