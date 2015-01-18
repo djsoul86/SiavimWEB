@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace SIAM.Model.Entities {
     public class Alertas {
@@ -18,7 +19,7 @@ namespace SIAM.Model.Entities {
         public DateTime FechaCreacionAlerta { get; set; }
         public string UsuarioCreacion { get; set; }
         public int IdCurso { get; set; }
-
+        
         public virtual Cursos Cursos { get; set; }
     }
 }

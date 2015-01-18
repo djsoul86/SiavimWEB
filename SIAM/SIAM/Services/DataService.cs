@@ -183,6 +183,8 @@ namespace SIAM.Services {
             foreach (var j in listaCursos) {
                 var p = (from c in bd.Horarios where c.IdCurso == j.IdCurso select c).ToList();
                 var n = (from c in bd.Notas where c.IdNota == j.IdCurso select c).ToList();
+                var t = (from c in bd.Tareas where c.IdCurso == j.IdCurso select c).ToList();
+                var a = (from c in bd.Alertas where c.IdCurso == j.IdCurso select c).ToList();
                 var ca = p.Select(x => new {
                     LunesInicio = x.LunesInicio,
                     LunesFin = x.LunesFin,
@@ -234,7 +236,26 @@ namespace SIAM.Services {
                 if (j.Notas != null) {
                     j.Notas.Clear();
                 }
-                
+                if (t.Count > 0) {
+                    var tar = t.Select(x => new {
+                        IdTarea = x.IdTarea,
+                        NombreTarea = x.NombreTarea,
+                        Descripcion = x.DescripcionTarea,
+                        FechaCreacion = x.FechaCreacion,
+                        FechaEntrega = x.FechaEntregaTarea
+                    }).First();
+                    Tareas ts = new Tareas{
+                        IdTarea = tar.IdTarea,
+                        NombreTarea = tar.NombreTarea,
+                        DescripcionTarea = tar.Descripcion,
+                        FechaEntregaTarea = tar.FechaEntrega,
+                        FechaCreacion = tar.FechaCreacion
+                    }; if (j.Tareas != null) {
+                        j.Tareas.Clear();
+                    }
+                    j.Tareas.Add(ts);
+                }
+                j.Alertas.Clear();
             }
             return listaCursos;
 
@@ -285,6 +306,18 @@ namespace SIAM.Services {
                 list.Add(am);
             }
             return list;
+        }
+
+        public void GuardarTareas(Tareas model) {
+            var bd = new SiamBD();
+            bd.Tareas.Add(model);
+            bd.SaveChanges();
+        }
+
+        public List<Tareas> ObtenerTareasPendientes() {
+            var bd = new SiamBD();
+            var tareas = (from c in bd.Tareas select c).ToList();
+            return tareas;
         }
     }
 }

@@ -132,6 +132,19 @@ namespace SIAM.Controllers {
             return RedirectToAction("CrearHorario");
         }
 
+        public ActionResult CrearTarea() {
+            var svc = new SIAM.Services.DataService();
+            ViewData["Cursos"] = svc.ObtenerCursosPorIdProfesor(WebSecurity.CurrentUserId.ToString()).Select(x => new SelectListItem { Text = x.NombreCurso, Value = x.IdCurso.ToString() });
+            return View();
+        }
+
+        public ActionResult GuardarTarea(Tareas model) {
+            var svc = new SIAM.Services.DataService();
+            model.FechaCreacion = DateTime.Now;
+            svc.GuardarTareas(model);
+            return RedirectToAction("CrearTarea");
+        }
+
     }
 
     public static class ExtEnums {
