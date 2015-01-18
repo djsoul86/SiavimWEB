@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace SIAM.Model.Entities {
     [Serializable]
@@ -27,7 +28,7 @@ namespace SIAM.Model.Entities {
         public string ViernesFin { get; set; }
         public string SabadoInicio { get; set; }
         public string SabadoFin { get; set; }
-
+        
         public virtual Cursos Cursos { get; set; }
 
     }

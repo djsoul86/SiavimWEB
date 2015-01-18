@@ -36,6 +36,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -46,26 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201412262033054_siam.cs" />
-    <Compile Include="Migrations\201412262033054_siam.Designer.cs">
-      <DependentUpon>201412262033054_siam.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201412262040024_siam1.cs" />
-    <Compile Include="Migrations\201412262040024_siam1.Designer.cs">
-      <DependentUpon>201412262040024_siam1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201412262042331_siam2.cs" />
-    <Compile Include="Migrations\201412262042331_siam2.Designer.cs">
-      <DependentUpon>201412262042331_siam2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201501070017282_siamr.cs" />
-    <Compile Include="Migrations\201501070017282_siamr.Designer.cs">
-      <DependentUpon>201501070017282_siamr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201501070027094_siamrq.cs" />
-    <Compile Include="Migrations\201501070027094_siamrq.Designer.cs">
-      <DependentUpon>201501070027094_siamrq.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -85,23 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ServiceBD\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201412262033054_siam.resx">
-      <DependentUpon>201412262033054_siam.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201412262040024_siam1.resx">
-      <DependentUpon>201412262040024_siam1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201412262042331_siam2.resx">
-      <DependentUpon>201412262042331_siam2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501070017282_siamr.resx">
-      <DependentUpon>201501070017282_siamr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501070027094_siamrq.resx">
-      <DependentUpon>201501070027094_siamrq.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

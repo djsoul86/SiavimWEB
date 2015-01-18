@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace SIAM.Model.Entities {
 
@@ -26,9 +27,12 @@ namespace SIAM.Model.Entities {
         public string IdProfesor { get; set; }
         
         //public ICollection<Usuario> Usuarios { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Notas> Notas { get; set; }
         public virtual ICollection<Alertas> Alertas { get; set; }
         public virtual ICollection<Horarios> Horarios { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Tareas> Tareas { get; set; }
         public ICollection<CursosUsuarios> CursosUsuarios { get; set; }
         public virtual Silabo Silabo { get; set; }
         //public virtual ICollection<Silabo> Silabo { get; set; }

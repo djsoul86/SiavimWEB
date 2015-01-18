@@ -6,6 +6,7 @@ using System.Web.Helpers;
 using System.Web.Services;
 using System.Web.Script.Serialization;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace SIAM {
     /// <summary>
@@ -97,6 +98,28 @@ namespace SIAM {
                 
                 if (alertas != null) {
                     json = new JavaScriptSerializer().Serialize(alertas);
+                } else {
+                    json = "false";
+                }
+            } catch (Exception ex) {
+                json = ex.Message;
+            }
+            return json;
+        }
+
+        [WebMethod]
+        public string ObtenerTareas() {
+            var svc = new SIAM.Services.DataService();
+            JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+            jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
+            
+            var json = "";
+            try {
+                var tareas = svc.ObtenerTareasPendientes();
+
+                if (tareas != null) {
+                    json = JsonConvert.SerializeObject(tareas, Formatting.None, jsSettings);
                 } else {
                     json = "false";
                 }

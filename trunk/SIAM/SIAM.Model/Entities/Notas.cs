@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace SIAM.Model.Entities {
     public class Notas {
@@ -27,6 +28,7 @@ namespace SIAM.Model.Entities {
 
         //public virtual ICollection<Usuario> Usuarios { get; set; }
         //public virtual ICollection<NotasUsuarios> NotasUsuarios { get; set; }
+        [JsonIgnore]
         public virtual Cursos Cursos { get; set; }
         public virtual Usuario Usuarios { get; set; }
         //public virtual Curso Cursos { get; set; }
