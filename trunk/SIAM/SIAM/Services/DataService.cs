@@ -319,5 +319,23 @@ namespace SIAM.Services {
             var tareas = (from c in bd.Tareas select c).ToList();
             return tareas;
         }
+
+        public List<Notas> ObtenerNotasPendientes(string cedula) {
+            var bd = new SiamBD();
+            var tareas = (from c in bd.Notas where c.Cedula == cedula select c).ToList();
+            List<Notas> lista = new List<Notas>();
+            foreach (var j in tareas) {
+                Notas n = new Notas();
+                n.Cedula = j.Cedula;
+                n.Corte = j.Corte;
+                n.FechaNota = j.FechaNota;
+                n.IdCurso = j.IdCurso;
+                n.IdNota = j.IdNota;
+                n.PorcentajeCorte = j.PorcentajeCorte;
+                n.NombreNota = j.NombreNota;
+                lista.Add(n);
+            }
+            return lista;
+        }
     }
 }

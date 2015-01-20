@@ -129,6 +129,25 @@ namespace SIAM {
             return json;
         }
 
+        [WebMethod]
+        public string ObtenerNotas(string cedula) {
+            var svc = new SIAM.Services.DataService();
+            var json = "";
+            try {
+                var notas = svc.ObtenerNotasPendientes(cedula);
+
+                if (notas != null) {
+                    json = new JavaScriptSerializer().Serialize(notas);
+                } else {
+                    json = "false";
+                }
+            } catch (Exception ex) {
+                json = ex.Message;
+            }
+            return json;
+
+        }
+
 
     }
 }

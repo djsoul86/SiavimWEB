@@ -23,6 +23,21 @@ namespace SIAM.Controllers {
             return View();
         }
 
+        public ActionResult Usuarios() {
+            return View();
+        }
+
+        public ActionResult Cursos() {
+            return View();
+        }
+
+        public ActionResult Alertas() {
+            return View();
+        }
+        public ActionResult Tareas() {
+            return View();
+        }
+
         public ActionResult Contact() {
             ViewBag.Message = "Your contact page.";
 
