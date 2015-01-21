@@ -333,6 +333,7 @@ namespace SIAM.Services {
                 n.IdNota = j.IdNota;
                 n.PorcentajeCorte = j.PorcentajeCorte;
                 n.NombreNota = j.NombreNota;
+                n.Nota = j.Nota;
                 lista.Add(n);
             }
             return lista;

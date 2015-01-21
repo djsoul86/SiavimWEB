@@ -112,7 +112,7 @@ namespace SIAM {
             var svc = new SIAM.Services.DataService();
             JsonSerializerSettings jsSettings = new JsonSerializerSettings();
             jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-
+            jsSettings.DateParseHandling = DateParseHandling.None;
             
             var json = "";
             try {
@@ -132,12 +132,15 @@ namespace SIAM {
         [WebMethod]
         public string ObtenerNotas(string cedula) {
             var svc = new SIAM.Services.DataService();
+            JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+            jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            jsSettings.DateParseHandling = DateParseHandling.None;
             var json = "";
             try {
                 var notas = svc.ObtenerNotasPendientes(cedula);
 
                 if (notas != null) {
-                    json = new JavaScriptSerializer().Serialize(notas);
+                    json = JsonConvert.SerializeObject(notas, Formatting.None, jsSettings);
                 } else {
                     json = "false";
                 }
