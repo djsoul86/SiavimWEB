@@ -49,6 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201501211807398_a.cs" />
+    <Compile Include="Migrations\201501211807398_a.Designer.cs">
+      <DependentUpon>201501211807398_a.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501211821093_a1.cs" />
+    <Compile Include="Migrations\201501211821093_a1.Designer.cs">
+      <DependentUpon>201501211821093_a1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501211949244_r.cs" />
+    <Compile Include="Migrations\201501211949244_r.Designer.cs">
+      <DependentUpon>201501211949244_r.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,6 +80,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ServiceBD\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201501211807398_a.resx">
+      <DependentUpon>201501211807398_a.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501211821093_a1.resx">
+      <DependentUpon>201501211821093_a1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501211949244_r.resx">
+      <DependentUpon>201501211949244_r.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

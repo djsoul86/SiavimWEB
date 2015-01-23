@@ -311,6 +311,7 @@
     <Content Include="Views\Home\Cursos.cshtml" />
     <Content Include="Views\Home\Alertas.cshtml" />
     <Content Include="Views\Home\Tareas.cshtml" />
+    <Content Include="Views\Home\MostrarAsesorias.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

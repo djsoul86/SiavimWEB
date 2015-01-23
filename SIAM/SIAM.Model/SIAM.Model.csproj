@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="EntitiesService\AlertasModel.cs" />
     <Compile Include="Entities\Alertas.cs" />
+    <Compile Include="Entities\Asesorias.cs" />
     <Compile Include="Entities\Cursos.cs" />
     <Compile Include="Entities\CursosUsuarios.cs" />
     <Compile Include="Entities\Horarios.cs" />

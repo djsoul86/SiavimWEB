@@ -256,6 +256,7 @@ namespace SIAM.Services {
                     j.Tareas.Add(ts);
                 }
                 j.Alertas.Clear();
+                j.Asesorias.Clear();
             }
             return listaCursos;
 
@@ -289,13 +290,30 @@ namespace SIAM.Services {
                     }
                 }
             }
+            string cedAdicional = cedula + "-E";
             List<AlertasModel> list = new List<AlertasModel>();
             var alertas = new List<Alertas>();
             var cursos = (from c in bd.CursosUsuarios where c.CedulaId == cedula select c.CursoId).ToList();
             if (alerts.Count > 0) {
                 alertas = (from c in bd.Alertas where cursos.Contains(c.IdCurso) && !alerts.Contains(c.IdAlerta) select c).ToList();
+                if (alertas.Count > 0) {
+                    alertas = alertas.Where(x => x.UsuarioCreacion != cedAdicional).ToList();
+                }
             } else {
                 alertas = (from c in bd.Alertas where cursos.Contains(c.IdCurso) select c).ToList();
+            }
+
+            
+            var alertasAdicionales = (from c in bd.Alertas where c.UsuarioCreacion == cedAdicional && !alerts.Contains(c.IdAlerta) select c).ToList();
+            if (alertasAdicionales.Count > 0) {
+                foreach (var j in alertasAdicionales) {
+                    AlertasModel am = new AlertasModel();
+                    am.IdAlerta = j.IdAlerta;
+                    am.IdCurso = j.IdCurso;
+                    am.TipoAlerta = j.TipoAlerta;
+                    am.DetalleAlerta = j.TipoAlerta;
+                    list.Add(am);
+                }
             }
             foreach (var j in alertas) {
                 AlertasModel am = new AlertasModel();
@@ -308,10 +326,17 @@ namespace SIAM.Services {
             return list;
         }
 
-        public void GuardarTareas(Tareas model) {
+        public void GuardarTareas(Tareas model,string usuario) {
             var bd = new SiamBD();
             bd.Tareas.Add(model);
+            Alertas alerta = new Alertas();
+            alerta.FechaCreacionAlerta = DateTime.Now;
+            alerta.FechaAlerta = DateTime.Now;
+            alerta.TipoAlerta = "Se ha creado una nueva tarea";
+            alerta.UsuarioCreacion = usuario;
+            alerta.IdCurso = model.IdCurso;
             bd.SaveChanges();
+            GuardarAlerta(alerta);
         }
 
         public List<Tareas> ObtenerTareasPendientes() {
@@ -337,6 +362,60 @@ namespace SIAM.Services {
                 lista.Add(n);
             }
             return lista;
+        }
+
+        public int GuardarAsesorias(string pregunta, string curso, string cedula) {
+            var bd = new SiamBD();
+            Asesorias asesoria = new Asesorias();
+            asesoria.IdCurso = int.Parse(curso);
+            asesoria.Pregunta = pregunta;
+            asesoria.ResueltaOk = false;
+            asesoria.Cedula = cedula;
+            asesoria.FechaCreacion = DateTime.Now;
+            bd.Asesorias.Add(asesoria);
+            bd.SaveChanges();
+            return asesoria.IdAsesoria;
+        }
+
+        public List<Asesorias> ObtenerAsesorias(string cedula) {
+            var bd = new SiamBD();
+            List<Asesorias> lista = new List<Asesorias>();
+            var asesorias = (from c in bd.Asesorias where c.Cedula == cedula && c.ResueltaOk == false select c).ToList();
+            foreach (var j in asesorias) {
+                Asesorias ase = new Asesorias();
+                ase.IdCurso = j.IdCurso;
+                ase.Pregunta = j.Pregunta;
+                ase.Respuesta = j.Respuesta;
+                ase.ResueltaOk = j.ResueltaOk;
+                ase.FechaCreacion = j.FechaCreacion;
+                ase.IdAsesoria = j.IdAsesoria;
+                ase.Cedula = j.Cedula;
+                lista.Add(ase);
+            }
+            return lista;
+        }
+
+        public List<Asesorias> ObtenerAsesoriasDocente(string idUsuario) {
+            var bd = new SiamBD();
+            var cursos = (from c in bd.Cursos where c.IdProfesor == idUsuario select c.IdCurso).ToList();
+            var asesorias = (from c in bd.Asesorias where cursos.Contains(c.IdCurso) && c.ResueltaOk == false select c).ToList();
+            return asesorias;
+        }
+
+        public void GuardarRespuestaAseroria(Asesorias model) {
+            var bd = new SiamBD();
+            var asesoria = (from c in bd.Asesorias where c.IdAsesoria == model.IdAsesoria select c).First();
+            asesoria.Respuesta = model.Respuesta;
+            asesoria.ResueltaOk = true;
+            asesoria.FechaRespuesta = DateTime.Now;
+            Alertas alerta = new Alertas();
+            alerta.FechaCreacionAlerta = DateTime.Now;
+            alerta.FechaAlerta = DateTime.Now;
+            alerta.TipoAlerta = "Respuesta de Pregunta Asesoria";
+            alerta.UsuarioCreacion = model.Cedula + "-E";
+            alerta.IdCurso = model.IdCurso;
+            GuardarAlerta(alerta);
+            bd.SaveChanges();
         }
     }
 }

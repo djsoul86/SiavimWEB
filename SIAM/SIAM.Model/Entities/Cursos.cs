@@ -31,6 +31,7 @@ namespace SIAM.Model.Entities {
         public virtual ICollection<Notas> Notas { get; set; }
         public virtual ICollection<Alertas> Alertas { get; set; }
         public virtual ICollection<Horarios> Horarios { get; set; }
+        public virtual ICollection<Asesorias> Asesorias { get; set; }
         [JsonIgnore]
         public virtual ICollection<Tareas> Tareas { get; set; }
         public ICollection<CursosUsuarios> CursosUsuarios { get; set; }
