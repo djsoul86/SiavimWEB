@@ -170,7 +170,10 @@ namespace SIAM.Services {
                     SabadoFin = ca.SabadoFin
                 };
                 j.Horarios.Add(h);
-                j.Notas = null;
+                j.Notas.Clear();
+                j.Asesorias.Clear();
+                j.Alertas.Clear();
+                j.Tareas.Clear();
             }
             return listaCursos;
 
