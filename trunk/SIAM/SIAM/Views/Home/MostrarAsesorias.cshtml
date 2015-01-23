@@ -1,0 +1,32 @@
+﻿@model SIAM.Model.Entities.Asesorias
+@{
+    ViewBag.Title = "MostrarAsesorias";
+    var data = ViewData["asesorias"] as List<SIAM.Model.Entities.Asesorias>;
+}
+
+<h2>MostrarAsesorias</h2>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Pregunta</th>
+            <th>Fecha Creacion</th>
+            <th>Respuesta</th>
+        </tr>
+    </thead>
+    @foreach (SIAM.Model.Entities.Asesorias u in data) {
+        using (@Html.BeginForm("GuardarRespuestaAsesoria","Home")){
+        <tr>
+            <td>@u.Pregunta</td>
+            <td>@u.FechaCreacion</td>
+            <td>@Html.TextBoxFor(x => x.Respuesta)</td>
+            @Html.Hidden("IdAsesoria",@u.IdAsesoria)
+            @Html.Hidden("IdCurso",@u.IdCurso)
+            @Html.Hidden("Cedula",@u.Cedula)
+           <td><button type="submit">Contestar</button></td>
+        </tr>
+    }
+    }
+</table>
+

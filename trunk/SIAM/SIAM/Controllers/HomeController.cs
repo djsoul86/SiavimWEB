@@ -156,8 +156,20 @@ namespace SIAM.Controllers {
         public ActionResult GuardarTarea(Tareas model) {
             var svc = new SIAM.Services.DataService();
             model.FechaCreacion = DateTime.Now;
-            svc.GuardarTareas(model);
+            svc.GuardarTareas(model,WebSecurity.CurrentUserId.ToString());
             return RedirectToAction("CrearTarea");
+        }
+
+        public ActionResult MostrarAsesorias() {
+            var svc = new SIAM.Services.DataService();
+            ViewData["asesorias"] = svc.ObtenerAsesoriasDocente(WebSecurity.CurrentUserId.ToString());
+            return View();
+        }
+
+        public ActionResult GuardarRespuestaAsesoria(Asesorias model) {
+            var svc = new SIAM.Services.DataService();
+            svc.GuardarRespuestaAseroria(model);
+            return RedirectToAction("MostrarAsesorias");
         }
 
     }

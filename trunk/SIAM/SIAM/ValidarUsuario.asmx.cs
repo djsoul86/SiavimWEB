@@ -151,6 +151,32 @@ namespace SIAM {
 
         }
 
+        [WebMethod]
+        public int GuardarAsesorias(string pregunta,string idcurso,string cedula) {
+            var svc = new SIAM.Services.DataService();
+            int idAsesoria = svc.GuardarAsesorias(pregunta, idcurso, cedula);
+            return idAsesoria;
+        }
+
+        [WebMethod]
+        public string ObtenerAsesorias(string cedula) {
+            var svc = new SIAM.Services.DataService();
+            var asesorias = svc.ObtenerAsesorias(cedula);
+            JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+            jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            jsSettings.DateParseHandling = DateParseHandling.None;
+            var json = "";
+            try {
+                if (asesorias != null) {
+                    json = JsonConvert.SerializeObject(asesorias, Formatting.None, jsSettings);
+                } else {
+                    json = "false";
+                }
+            } catch (Exception ex) {
+                json = ex.Message;
+            }
+            return json;
+        }
 
     }
 }
