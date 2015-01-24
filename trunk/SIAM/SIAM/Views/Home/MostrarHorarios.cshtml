@@ -1,0 +1,35 @@
+﻿@model SIAM.Model.Entities.Horarios
+@{
+    ViewBag.Title = "MostrarHorarios";
+    var data = ViewData["Horarios"] as List<SIAM.Model.Entities.Horarios>;
+    var curso = ViewData["Curso"] as String;
+}
+
+<h2>MostrarHorarios</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Curso</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miercoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Sabado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tr>
+        @foreach (SIAM.Model.Entities.Horarios h in data) {
+            <td>@curso</td>
+            <td>@h.LunesInicio - @h.LunesFin</td>
+            <td>@h.MartesInicio - @h.MartesFin</td>
+            <td>@h.MiercolesInicio - @h.MiercolesFin</td>
+            <td>@h.JuevesInicio - @h.JuevesFin</td>
+            <td>@h.ViernesInicio - @h.ViernesFin</td>
+            <td>@h.SabadoInicio - @h.SabadoFin</td>
+            <td>@Html.ActionLink("Modificar Horario","ModificarHorioPorIdCurso","Home",new {id=@h.IdHorario},null)</td>
+        }
+    </tr>
+</table>

@@ -52,9 +52,9 @@ namespace SIAM.Services {
             bd.SaveChanges();
         }
 
-        public List<Cursos> ObtenerCursos() {
+        public List<Cursos> ObtenerCursos(string cedula) {
             var bd = new SiamBD();
-            var cursos = (from c in bd.Cursos select c).ToList();
+            var cursos = (from c in bd.Cursos where c.IdProfesor == cedula select c).ToList();
             return cursos;
         }
         public List<Usuario> ObtenerUsuariosSinCursoAsociado(int id) {
@@ -247,7 +247,7 @@ namespace SIAM.Services {
                         FechaCreacion = x.FechaCreacion,
                         FechaEntrega = x.FechaEntregaTarea
                     }).First();
-                    Tareas ts = new Tareas{
+                    Tareas ts = new Tareas {
                         IdTarea = tar.IdTarea,
                         NombreTarea = tar.NombreTarea,
                         DescripcionTarea = tar.Descripcion,
@@ -282,7 +282,27 @@ namespace SIAM.Services {
             bd.SaveChanges();
         }
 
-        public List<AlertasModel> ObtenerAlertas(string cedula,string idAlertas) {
+        public void GuardarHorarioModifcado(Horarios model) {
+            var bd = new SiamBD();
+            var horario = bd.Horarios.Find(model.IdHorario);
+            horario.LunesInicio = model.LunesInicio;
+            horario.LunesFin = model.LunesFin;
+            horario.MartesInicio = model.MartesInicio;
+            horario.MartesFin = model.MartesFin;
+            horario.MiercolesInicio = model.MiercolesInicio;
+            horario.JuevesInicio = model.JuevesInicio;
+            horario.JuevesFin = model.JuevesFin;
+            horario.ViernesInicio = model.ViernesInicio;
+            horario.ViernesFin = model.ViernesFin;
+            horario.SabadoInicio = model.SabadoInicio;
+            horario.SabadoFin = model.SabadoFin;
+            bd.SaveChanges();
+            var curso = ObtenerCursoPorId(model.IdCurso);
+            GuardarAlerta(CrearObjetoAlerta(model.IdCurso.ToString(),"Horario modificado para curso " + curso.NombreCurso,WebSecurity.CurrentUserId.ToString()));
+            
+        }
+
+        public List<AlertasModel> ObtenerAlertas(string cedula, string idAlertas) {
             var bd = new SiamBD();
             List<int> alerts = new List<int>();
             if (idAlertas != "") {
@@ -306,7 +326,7 @@ namespace SIAM.Services {
                 alertas = (from c in bd.Alertas where cursos.Contains(c.IdCurso) select c).ToList();
             }
 
-            
+
             var alertasAdicionales = (from c in bd.Alertas where c.UsuarioCreacion == cedAdicional && !alerts.Contains(c.IdAlerta) select c).ToList();
             if (alertasAdicionales.Count > 0) {
                 foreach (var j in alertasAdicionales) {
@@ -329,17 +349,11 @@ namespace SIAM.Services {
             return list;
         }
 
-        public void GuardarTareas(Tareas model,string usuario) {
+        public void GuardarTareas(Tareas model, string usuario) {
             var bd = new SiamBD();
             bd.Tareas.Add(model);
-            Alertas alerta = new Alertas();
-            alerta.FechaCreacionAlerta = DateTime.Now;
-            alerta.FechaAlerta = DateTime.Now;
-            alerta.TipoAlerta = "Se ha creado una nueva tarea";
-            alerta.UsuarioCreacion = usuario;
-            alerta.IdCurso = model.IdCurso;
             bd.SaveChanges();
-            GuardarAlerta(alerta);
+            GuardarAlerta(CrearObjetoAlerta(model.IdCurso.ToString(), "Se ha creado una nueva tarea", usuario));
         }
 
         public List<Tareas> ObtenerTareasPendientes() {
@@ -411,14 +425,39 @@ namespace SIAM.Services {
             asesoria.Respuesta = model.Respuesta;
             asesoria.ResueltaOk = true;
             asesoria.FechaRespuesta = DateTime.Now;
-            Alertas alerta = new Alertas();
-            alerta.FechaCreacionAlerta = DateTime.Now;
-            alerta.FechaAlerta = DateTime.Now;
-            alerta.TipoAlerta = "Respuesta de Pregunta Asesoria";
-            alerta.UsuarioCreacion = model.Cedula + "-E";
-            alerta.IdCurso = model.IdCurso;
-            GuardarAlerta(alerta);
+            GuardarAlerta(CrearObjetoAlerta(model.IdCurso.ToString(), "Respuesta de Pregunta Asesoria", model.Cedula + "-E"));
             bd.SaveChanges();
+        }
+
+        public void EliminarEstudiante(string cedula) {
+            var bd = new SiamBD();
+            var estudiante = bd.Usuarios.Find(cedula);
+            bd.Usuarios.Remove(estudiante);
+            bd.SaveChanges();
+        }
+
+        public void EliminarCurso(string id) {
+            var bd = new SiamBD();
+            var curso = bd.Cursos.Find(id);
+            bd.Cursos.Remove(curso);
+            bd.SaveChanges();
+            GuardarAlerta(CrearObjetoAlerta(id, "Se ha eliminado el curso " + curso.NombreCurso, WebSecurity.CurrentUserId.ToString()));
+        }
+
+        public List<Horarios> ObtenerHorariosPorCurso(int id) {
+            var bd = new SiamBD();
+            var horario = (from c in bd.Horarios where c.IdCurso == id select c).ToList();
+            return horario;
+        }
+
+        public Alertas CrearObjetoAlerta(string idCurso, string tipoAlerta, string idusuario) {
+            Alertas alertas = new Alertas();
+            alertas.FechaAlerta = DateTime.Now;
+            alertas.FechaCreacionAlerta = DateTime.Now;
+            alertas.IdCurso = int.Parse(idCurso);
+            alertas.TipoAlerta = tipoAlerta;
+            alertas.UsuarioCreacion = idusuario;
+            return alertas;
         }
     }
 }
