@@ -1,6 +1,9 @@
 ﻿@model SIAM.Model.Entities.Horarios
 @{
-    ViewBag.Title = "CrearHorario";
+    ViewBag.Title = "ModificarHorarios";
+    var curso = ViewData["Cursos"] as String;
+    var idCurso = ViewData["idCurso"] as String;
+    var idHorario = ViewData["idHorario"] as String;
 }
 
 @section Scripts{
@@ -8,17 +11,19 @@
 
         $(document).ready(function () {
             if ('@TempData["Mensaje"]' != "") {
-                alert("Horario Creado y Asignado");
+                alert("Horario Modificado");
             }
         });
 
     </script>
 }
 
-<h2>CrearHorario</h2>
+<h2>ModificarHorario</h2>
 
-@using (Html.BeginForm("GuardarHorarioCurso","Home")){
+@using (Html.BeginForm("GuardarModificacionHorario", "Home")) {
 <table>
+    @Html.Hidden("IdCurso",idCurso)
+    @Html.Hidden("IdHorario",idHorario)
     <thead>
         <tr>
             <th>Curso</th>
@@ -37,7 +42,7 @@
         </tr>
     </thead>
     <tr>
-        <td>@Html.DropDownListFor(x => x.IdCurso,ViewData["Cursos"] as IEnumerable<SelectListItem>)</td>
+        <td>@curso</td>
         <td>@Html.DropDownListFor(x => x.LunesInicio,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
         <td>@Html.DropDownListFor(x => x.LunesFin,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
         <td>@Html.DropDownListFor(x => x.MartesInicio,ViewData["Horas"] as IEnumerable<SelectListItem>)</td>
@@ -57,3 +62,4 @@
 </table>
 
 }
+

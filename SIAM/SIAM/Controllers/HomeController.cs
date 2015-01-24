@@ -84,16 +84,22 @@ namespace SIAM.Controllers {
 
         public ActionResult MostrarCursos() {
             var svc = new SIAM.Services.DataService();
-            ViewData["cursos"] = svc.ObtenerCursos();
+            ViewData["cursos"] = svc.ObtenerCursos(WebSecurity.CurrentUserId.ToString());
             return View();
         }
 
         public ActionResult AsignarUsuarios(int Id) {
             var svc = new SIAM.Services.DataService();
-            ViewData["usuarios"] = svc.ObtenerUsuariosSinCursoAsociado(Id);
+            var usuarios = svc.ObtenerUsuariosSinCursoAsociado(Id);
+            ViewData["usuarios"] = usuarios;
             var curso = svc.ObtenerCursoPorId(Id);
             ViewData["curso"] = curso.NombreCurso;
-            return View();
+            if (usuarios.Count > 0) {
+                return View();
+            } else {
+                TempData["Mensaje"] = "No hay estudiantes para asignar a este curso";
+                return RedirectToAction("MostrarCursos");
+            }
         }
 
         public ActionResult GuardarAsignacionUsuarios(string usuario, string curso) {
@@ -144,6 +150,7 @@ namespace SIAM.Controllers {
         public ActionResult GuardarHorarioCurso(Horarios model) {
             var svc = new SIAM.Services.DataService();
             svc.GuardarHorarioCurso(model);
+            TempData["Mensaje"] = "Horario Creado y Asignado";
             return RedirectToAction("CrearHorario");
         }
 
@@ -172,6 +179,46 @@ namespace SIAM.Controllers {
             return RedirectToAction("MostrarAsesorias");
         }
 
+        public ActionResult EliminarEstudiante(string id) {
+            var svc = new SIAM.Services.DataService();
+            svc.EliminarEstudiante(id);
+            return RedirectToAction("MostrarUsuarios");
+        }
+
+        public ActionResult EliminarCurso(string id) {
+            var svc = new SIAM.Services.DataService();
+            svc.EliminarCurso(id);
+            return RedirectToAction("MostrarCursos");
+        }
+
+        public ActionResult MostrarHorarioPorIDCurso(int id) {
+            var svc = new SIAM.Services.DataService();
+            ViewData["Horarios"] = svc.ObtenerHorariosPorCurso(id);
+            var curso = svc.ObtenerCursoPorId(id);
+            ViewData["Curso"] = curso.NombreCurso;
+            return View("MostrarHorarios");
+        }
+
+        public ActionResult ModificarHorioPorIdCurso(int id) {
+            var svc = new SIAM.Services.DataService();
+            List<int> lista = new List<int>();
+            for (int i = 7; i < 23; i++) {
+                lista.Add(i);
+            }
+            ViewData["Horas"] = (new SelectListItem[] { new SelectListItem { Value = "", Text = "" } }).Union(lista.Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }));
+            var curso = svc.ObtenerCursoPorId(id);
+            ViewData["Cursos"] = curso.NombreCurso;
+            ViewData["idCurso"] = curso.IdCurso.ToString();
+            ViewData["idHorario"] = id.ToString();
+            return View("ModificarHorarios");
+        }
+
+        public ActionResult GuardarModificacionHorario(Horarios model, string IdHorario) {
+            var svc = new SIAM.Services.DataService();
+            svc.GuardarHorarioModifcado(model);
+            TempData["Mensaje"] = "Horario Modificado";
+            return RedirectToAction("ModificarHorioPorIdCurso", new { id = model.IdCurso });
+        }
     }
 
     public static class ExtEnums {

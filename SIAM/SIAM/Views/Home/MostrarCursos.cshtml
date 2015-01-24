@@ -2,6 +2,19 @@
 @{
     ViewBag.Title = "MostrarCursos";
     var data = ViewData["cursos"] as List<SIAM.Model.Entities.Cursos>;
+    var mensaje = ViewData["curso"] as String;
+}
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            if ('@TempData["Mensaje"]' != "") {
+                alert("No tiene usuarios para asignarle este curso");
+            }
+        });
+
+    </script>
 }
 
 <h2>MostrarCursos</h2>
@@ -20,7 +33,9 @@
             <td>@u.NombreCurso</td>
             <td>@u.IntensidadHoraria</td>
             <td>@Html.ActionLink("Modificar", "ModificarCurso", "Home", new {id = @u.IdCurso },null)</td>
-            <td>@Html.ActionLink("AsignarUsuario", "AsignarUsuarios", "Home", new {id = @u.IdCurso },null)</td>
+            <td>@Html.ActionLink("Asignar Usuario", "AsignarUsuarios", "Home", new {id = @u.IdCurso },null)</td>
+            <td>@Html.ActionLink("Eliminar Curso", "EliminarCurso", "Home", new {id = @u.IdCurso },null)</td>
+            <td>@Html.ActionLink("Mostrar Horario", "MostrarHorarioPorIDCurso", "Home", new {id = @u.IdCurso },null)</td>
         </tr>
     }
 </table>
