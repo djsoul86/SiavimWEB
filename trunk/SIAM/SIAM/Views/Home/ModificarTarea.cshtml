@@ -1,0 +1,27 @@
+﻿@model SIAM.Model.Entities.Tareas
+@{
+    ViewBag.Title = "ModificarUsuario";
+}
+
+<h2>Modificar Usuario</h2>
+
+@using (@Html.BeginForm("GuardarTareaModificada", "Home")) {
+<table>
+    @Html.HiddenFor(x => x.IdTarea)
+    <tr>
+        <td>Nombre Tarea:</td>
+        <td>@Html.TextBoxFor(x => x.NombreTarea)</td>
+    </tr>
+    <tr>
+        <td>Descripcion Tarea:</td>
+        <td>@Html.TextBoxFor(x => x.DescripcionTarea)</td>
+    </tr>
+    <tr>
+        <td>Fecha Entrega:</td>
+        <td>@Html.TextBoxFor(x => x.FechaEntregaTarea)</td>
+    </tr>
+    <tr>
+        <td><button type="submit">Guardar</button></td>
+    </tr>
+</table>
+}
