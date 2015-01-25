@@ -23,7 +23,7 @@ namespace SIAM {
         public string HelloWorld() {
             return "Hola a todos";
         }
-
+        #region -- Estudiante --
         [WebMethod]
         public string ValidarEstudiante(string cedula, string password) {
             var json = "";
@@ -46,7 +46,9 @@ namespace SIAM {
             var svc = new SIAM.Services.DataService();
             svc.ModificarEstudiante(nombre, apellidos, telefono, email, password, cedula);
         }
+        #endregion
 
+        #region -- Cursos --
         [WebMethod]
         public string ObtenerCursoPorIdUsuario(string cedula, string nombreCurso) {
             var json = "";
@@ -88,7 +90,9 @@ namespace SIAM {
             string curso = svc.ObtenerNombresCursosPorCedula(cedula);
             return curso;
         }
+        #endregion
 
+        #region --Alertas --
         [WebMethod]
         public string ObtenerAlertas(string cedula, string idAlertas) {
             var svc = new SIAM.Services.DataService();
@@ -106,7 +110,9 @@ namespace SIAM {
             }
             return json;
         }
+        #endregion
 
+        #region -- Tareas --
         [WebMethod]
         public string ObtenerTareas() {
             var svc = new SIAM.Services.DataService();
@@ -128,7 +134,9 @@ namespace SIAM {
             }
             return json;
         }
+        #endregion
 
+        #region -- Notas --
         [WebMethod]
         public string ObtenerNotas(string cedula) {
             var svc = new SIAM.Services.DataService();
@@ -150,7 +158,9 @@ namespace SIAM {
             return json;
 
         }
+        #endregion
 
+        #region -- Asesorias
         [WebMethod]
         public int GuardarAsesorias(string pregunta,string idcurso,string cedula) {
             var svc = new SIAM.Services.DataService();
@@ -177,6 +187,7 @@ namespace SIAM {
             }
             return json;
         }
+        #endregion
 
     }
 }

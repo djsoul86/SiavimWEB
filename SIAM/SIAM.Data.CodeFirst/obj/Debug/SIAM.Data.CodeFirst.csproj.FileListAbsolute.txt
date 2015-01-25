@@ -148,7 +148,3 @@ C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.dll
 C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.pdb
 C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\bin\Debug\Newtonsoft.Json.dll
 C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\bin\Debug\Newtonsoft.Json.xml
-C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.Migrations.a.resources
-C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.csproj.GenerateResource.Cache
-C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.Migrations.a1.resources
-C:\RepositorioTesis\SIAM\SIAM.Data.CodeFirst\obj\Debug\SIAM.Data.CodeFirst.Migrations.r.resources
