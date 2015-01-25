@@ -314,6 +314,8 @@
     <Content Include="Views\Home\MostrarAsesorias.cshtml" />
     <Content Include="Views\Home\MostrarHorarios.cshtml" />
     <Content Include="Views\Home\ModificarHorarios.cshtml" />
+    <Content Include="Views\Home\ConsultarTareas.cshtml" />
+    <Content Include="Views\Home\ModificarTarea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

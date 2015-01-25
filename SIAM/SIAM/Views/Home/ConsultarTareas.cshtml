@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "ConsultarTareas";
+    var data = ViewData["Tareas"] as List<SIAM.Model.Entities.Tareas>;
+}
+
+<h2>ConsultarTareas</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre Tarea</th>
+            <th>Descripcion Tarea</th>
+            <th>Fecha Entrega</th>
+            <th>Fecha Creacion</th>
+            <th colspan="2">Acciones</th>
+        </tr>
+    </thead>
+
+    @foreach (SIAM.Model.Entities.Tareas t in data) {
+        <tr>
+            <td>@t.NombreTarea</td>
+            <td>@t.DescripcionTarea</td>
+            <td>@String.Format("{0:yyyy-MM-dd}",@t.FechaEntregaTarea)</td>
+            <td>@String.Format("{0:yyyy-MM-dd}",@t.FechaCreacion)</td>
+            <td>@Html.ActionLink("Modificar", "ModificarTarea", "Home", new { id = @t.IdTarea }, null)</td>
+            <td>@Html.ActionLink("Eliminar", "EliminarTarea", "Home", new { id = @t.IdTarea }, null)</td>
+        </tr>
+    }
+
+</table>

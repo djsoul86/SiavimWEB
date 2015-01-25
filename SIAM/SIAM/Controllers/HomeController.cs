@@ -12,7 +12,9 @@ namespace SIAM.Controllers {
     public class HomeController : Controller {
         public enum TipoAlerta { CambioSalon, NoHayClase, FechaParcial, FechaTrabado }
         public TipoAlerta InfoTypeLista { get; set; }
-        
+
+        #region -- Vistas --
+
         public ActionResult Index() {
             
             return View();
@@ -43,6 +45,14 @@ namespace SIAM.Controllers {
 
             return View();
         }
+        public ActionResult CrearCurso() {
+
+            return View();
+        }
+        
+        #endregion
+
+        #region -- Usuarios --
 
         public ActionResult GuardarUsuario(Usuario model) {
             var svc = new SIAM.Services.DataService();
@@ -68,10 +78,15 @@ namespace SIAM.Controllers {
             return RedirectToAction("MostrarUsuarios");
         }
 
-        public ActionResult CrearCurso() {
-
-            return View();
+        public ActionResult EliminarEstudiante(string id) {
+            var svc = new SIAM.Services.DataService();
+            svc.EliminarEstudiante(id);
+            return RedirectToAction("MostrarUsuarios");
         }
+        #endregion
+
+        #region -- Cursos --
+
 
         public ActionResult GuardarCurso(Cursos model) {
             var svc = new SIAM.Services.DataService();
@@ -107,8 +122,16 @@ namespace SIAM.Controllers {
             svc.AsignarCursoUsuario(usuario, curso);
             return RedirectToAction("MostrarCursos");
         }
-        
 
+        public ActionResult EliminarCurso(string id) {
+            var svc = new SIAM.Services.DataService();
+            svc.EliminarCurso(id);
+            return RedirectToAction("MostrarCursos");
+        }
+
+        #endregion
+
+        #region -- Alertas --
         public ActionResult CrearAlerta() {
             ViewData["Alertas"] = ExtEnums.ToSelectList(TipoAlerta.CambioSalon);
             return View();
@@ -117,12 +140,15 @@ namespace SIAM.Controllers {
         public ActionResult GuardarAlerta(Alertas model) {
             var svc = new SIAM.Services.DataService();
             model.FechaCreacionAlerta = DateTime.Now;
-            model.UsuarioCreacion = WebSecurity.CurrentUserId.ToString(); 
+            model.UsuarioCreacion = WebSecurity.CurrentUserId.ToString();
             svc.GuardarAlerta(model);
             return RedirectToAction("CrearAlerta");
         }
+        #endregion
 
-        public ActionResult CrearNotas(string id) {
+        #region -- Notas --
+
+         public ActionResult CrearNotas(string id) {
             var svc = new SIAM.Services.DataService();
             var usuario = svc.ObtenerUsuarioID(id);
             ViewData["usuario"] = usuario.Nombres;
@@ -136,6 +162,9 @@ namespace SIAM.Controllers {
             return View();
         }
 
+        #endregion
+        
+        #region -- Horarios --
         public ActionResult CrearHorario() {
             var svc = new SIAM.Services.DataService();
             List<int> lista = new List<int>();
@@ -152,43 +181,6 @@ namespace SIAM.Controllers {
             svc.GuardarHorarioCurso(model);
             TempData["Mensaje"] = "Horario Creado y Asignado";
             return RedirectToAction("CrearHorario");
-        }
-
-        public ActionResult CrearTarea() {
-            var svc = new SIAM.Services.DataService();
-            ViewData["Cursos"] = svc.ObtenerCursosPorIdProfesor(WebSecurity.CurrentUserId.ToString()).Select(x => new SelectListItem { Text = x.NombreCurso, Value = x.IdCurso.ToString() });
-            return View();
-        }
-
-        public ActionResult GuardarTarea(Tareas model) {
-            var svc = new SIAM.Services.DataService();
-            model.FechaCreacion = DateTime.Now;
-            svc.GuardarTareas(model,WebSecurity.CurrentUserId.ToString());
-            return RedirectToAction("CrearTarea");
-        }
-
-        public ActionResult MostrarAsesorias() {
-            var svc = new SIAM.Services.DataService();
-            ViewData["asesorias"] = svc.ObtenerAsesoriasDocente(WebSecurity.CurrentUserId.ToString());
-            return View();
-        }
-
-        public ActionResult GuardarRespuestaAsesoria(Asesorias model) {
-            var svc = new SIAM.Services.DataService();
-            svc.GuardarRespuestaAseroria(model);
-            return RedirectToAction("MostrarAsesorias");
-        }
-
-        public ActionResult EliminarEstudiante(string id) {
-            var svc = new SIAM.Services.DataService();
-            svc.EliminarEstudiante(id);
-            return RedirectToAction("MostrarUsuarios");
-        }
-
-        public ActionResult EliminarCurso(string id) {
-            var svc = new SIAM.Services.DataService();
-            svc.EliminarCurso(id);
-            return RedirectToAction("MostrarCursos");
         }
 
         public ActionResult MostrarHorarioPorIDCurso(int id) {
@@ -219,6 +211,62 @@ namespace SIAM.Controllers {
             TempData["Mensaje"] = "Horario Modificado";
             return RedirectToAction("ModificarHorioPorIdCurso", new { id = model.IdCurso });
         }
+        #endregion
+
+        #region -- Tareas --
+        public ActionResult CrearTarea() {
+            var svc = new SIAM.Services.DataService();
+            ViewData["Cursos"] = svc.ObtenerCursosPorIdProfesor(WebSecurity.CurrentUserId.ToString()).Select(x => new SelectListItem { Text = x.NombreCurso, Value = x.IdCurso.ToString() });
+            return View();
+        }
+
+        public ActionResult GuardarTarea(Tareas model) {
+            var svc = new SIAM.Services.DataService();
+            model.FechaCreacion = DateTime.Now;
+            svc.GuardarTareas(model,WebSecurity.CurrentUserId.ToString());
+            return RedirectToAction("CrearTarea");
+        }
+
+        public ActionResult ConsultarTareas() {
+            var svc = new SIAM.Services.DataService();
+            ViewData["Tareas"] = svc.ObtenerTareasPorIDProfesor(WebSecurity.CurrentUserId.ToString());
+            return View();
+        }
+
+        public ActionResult ModificarTarea(int id){
+            var svc = new SIAM.Services.DataService();
+            var tarea = svc.ObtenerTareaPorIDTarea(id);
+            return View(tarea);
+        }
+
+        public ActionResult GuardarTareaModificada(Tareas model) {
+            var svc = new SIAM.Services.DataService();
+            svc.GuardarModificacionTarea(model);
+            return RedirectToAction("ConsultarTareas");
+        }
+
+        public ActionResult EliminarTarea(int id) {
+            var svc = new SIAM.Services.DataService();
+            svc.EliminarTarea(id);
+            return RedirectToAction("ConsultarTareas");
+        }
+        #endregion
+
+        #region -- Asesorias --
+        public ActionResult MostrarAsesorias() {
+            var svc = new SIAM.Services.DataService();
+            ViewData["asesorias"] = svc.ObtenerAsesoriasDocente(WebSecurity.CurrentUserId.ToString());
+            return View();
+        }
+
+        public ActionResult GuardarRespuestaAsesoria(Asesorias model) {
+            var svc = new SIAM.Services.DataService();
+            svc.GuardarRespuestaAseroria(model);
+            return RedirectToAction("MostrarAsesorias");
+        }
+
+        #endregion
+        
     }
 
     public static class ExtEnums {
