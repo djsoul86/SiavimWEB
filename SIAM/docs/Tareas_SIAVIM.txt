@@ -1,0 +1,46 @@
+EL procedimiento a seguir es:
+
+1.  Hacer el análisis del problema y su entorno.
+  Para esto se requiere:  
+
+Levantamiento de informacion sobre el tema de estudio
+Clasficiacion de la informacion
+Redactar un documento que contenga la teoría que respalde su investigacion
+Analizar el problema en términos de las teorias encontradas en el levantamiento de la info.
+Elaborar el analisis de viabilidad del proyecto (Viabilidad Tecnica, Viabilidad Economica (Elaborar una estimacion de costos), Viabilidad Legal, Viabilidad moral)
+Elaborar un analisis de requerimientos (listar los requerimientos y determinar si son alcanzables, verificables, etc)
+
+2. El segundo paso es Elaborar un diseño de la solucion
+ 
+Diseño de hardware:
+ Diseño de la red (Packet Tracer)
+ Simulacion para validar el diseño de la red
+
+Diseño de Software
+ Diagramas de casos de uso
+ Diagrama de la base de datos
+ Diagrama de clases
+ Diagramas de interaccion ( Secuencia y Colaboraciones)
+ Diagrama de actividades
+ Diagrama de componentes
+ GUI
+ Diseño del plan de pruebas
+
+
+3. el tercer paso es la implementacion
+ Implemetacion de Hardware
+   Montaje de la red (Configuracion y pruebas)
+
+
+Implementacion de Software
+  Codificacion del sistema diseñado 
+
+
+
+4. Ejecucion del plan de pruebas.
+
+
+Vaya avanzando con estas tareas y en cuanto las tenga listas las revisamos.
+
+
+Atentamente:
