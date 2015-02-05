@@ -1,0 +1,231 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using Avianca4.Models;
+
+
+
+namespace MillasAvianca.Controllers {
+    public class HomeController : Controller {
+        public ActionResult Index() {
+
+            return View();
+        }
+
+        public ActionResult parseCSV(HttpPostedFileBase fileP) {
+            List<string[]> parsedData = new List<string[]>();
+            List<string[]> correctFile = new List<string[]>();
+            List<string[]> incorrectFile = new List<string[]>();
+            List<string[]> ciudadError = new List<string[]>();
+            List<string[]> zipCodeError = new List<string[]>();
+            List<string[]> Historico = new List<string[]>();
+            List<Pais> pa = new List<Pais>();
+            List<Cliente> cl = new List<Cliente>();
+            var bd = new AviancaEntities();
+            
+            using (StreamReader readFile = new StreamReader(fileP.InputStream,Encoding.Default)) {
+                string line;
+                string[] row;
+
+                while ((line = readFile.ReadLine()) != null) {
+                    row = line.Split('|');
+                    //if (row.Length == 23) {
+                    //    parsedData.Add(row);
+                    //} 
+                    //else {
+                    //    incorrectFile.Add(row);
+                    //}
+                    Pais p = new Pais();
+                    p.CodigoPais = row[0].Trim();
+                    p.NombrePais = row[1].Trim();
+                    p.CodigoEstado = row[2].Trim();
+                    p.NombreEstado = row[3].Trim();
+                    p.NombreCiudad = row[4].Trim();
+                    p.IATACiudad = row[5].Trim();
+                    p.CodPostalInicial = row[6].Trim();
+                    p.CodPostalFinal = row[7].Trim();
+                    pa.Add(p);
+                }
+                long id = 0;
+                foreach (Pais p in pa) {
+                    bd.Paises.Add(p);
+                    
+                    if ((id++ % 100) == 0) {
+                        try {
+                            bd.SaveChanges();
+                        } catch (System.Data.Entity.Validation.DbEntityValidationException dbEx) {
+                            Exception raise = dbEx;
+                            foreach (var validationErrors in dbEx.EntityValidationErrors) {
+                                foreach (var validationError in validationErrors.ValidationErrors) {
+                                    string message = string.Format("{0}:{1}",
+                                        validationErrors.Entry.Entity.ToString(),
+                                        validationError.ErrorMessage);
+                                    // raise a new exception nesting
+                                    // the current instance as InnerException
+                                    raise = new InvalidOperationException(message, raise);
+                                }
+                            }
+                            throw raise;
+                        }
+
+                        bd = new AviancaEntities();
+                    }
+                }
+                
+            }
+
+
+
+
+            string filePathCorrect = Path.Combine(Server.MapPath("~/Files"),"CorrectFile-" + DateTime.Now.ToString("yyyMMddmm") + ".csv");
+            string filePathIncorrect = Path.Combine(Server.MapPath("~/Files"),"IncorrectFile-" + DateTime.Now.ToString("yyyMMddmm") + ".csv");
+
+            var csvFileCorrect = new StringBuilder();
+            var csvFileIncorrect = new StringBuilder();
+            var cachePaises = new Dictionary<string, List<Pais>>();
+            for (int i = 1; i < parsedData.Count; i++) {
+                var cont = 0;
+                var cityerror = 0;
+                int value;
+                string ciudad = parsedData[i][13].Trim().ToUpper();
+                string zipCode = parsedData[i][15];
+                string pais = parsedData[i][16].Trim().ToUpper();
+
+                string key = ciudad + "|" + pais;
+                pa = null;
+                if (!cachePaises.ContainsKey(key)) {
+                    pa = (from c in bd.Paises where c.NombreCiudad == ciudad && c.NombrePais == pais select c).ToList();
+                    cachePaises[key] = pa;
+                } else {
+                    pa = cachePaises[key];
+                }
+
+
+                if (pa != null && pa.Count>0) {
+                    //Si encontro la ciudad en la BD pasa a validar si en esa posicion el pais corresponde con la ciudad
+                    for (int j = 0; j < pa.Count; j++) {
+
+                        //si el pais corresponde a la ciudad pasa a validar el codigo postal
+                        if (pa[j].CodPostalFinal != null || pa[j].CodPostalInicial != null) {
+                            //si el codigo postal no es nulo pasa a validar si esta entre el rango de la BD
+                            int.TryParse(zipCode, out value);
+                            if (value != 0) {
+                                if ((((Convert.ToInt32(zipCode)) >= (Convert.ToInt32(pa[j].CodPostalInicial)) && (Convert.ToInt32(zipCode)) <= (Convert.ToInt32(pa[j].CodPostalFinal)))) || pa[j].CodPostalFinal == null) {
+                                    cont = 1;
+                                }
+                            } else {
+                                if (zipCode == pa[j].CodPostalInicial.TrimEnd() || zipCode == pa[j].CodPostalFinal.TrimEnd() || pa[j].CodPostalFinal == null) {
+                                    cont = 1;
+                                }
+                            }
+                        } else {
+                            cont = 1;
+                        }
+
+                    }
+                } else {
+                    ciudadError.Add(parsedData[i]);
+                    cityerror = 1;
+                    
+                }
+                if (cont == 1) {
+                    correctFile.Add(parsedData[i]);
+                } else {
+                    if (cityerror != 1) {
+                        zipCodeError.Add(parsedData[i]);
+                    }
+                }
+            }
+
+            csvFileCorrect.Append(string.Join(";", parsedData[0])+ Environment.NewLine);
+            csvFileIncorrect.Append(string.Join(";", parsedData[0])+";FechaBA;ERROR"+Environment.NewLine);
+            for (int i = 0; i < correctFile.Count; i++) {
+                csvFileCorrect.Append(string.Join(";", correctFile[i]) + Environment.NewLine);
+            }
+
+
+
+            for (int i = 0; i < zipCodeError.Count; i++) {
+                string cli = zipCodeError[i][4];
+                string mensaje = "";
+                if (zipCodeError[i][15] == "") {
+                    mensaje = "No tiene ZipCode";
+                } else {
+                    mensaje ="No se encuentra ZipCode: " + zipCodeError[i][15];
+                }
+                var cliente = (from c in bd.Clientes where c.NumeroCliente == cli  orderby c.Fecha descending select new {c.Guia,c.Fecha} ).FirstOrDefault();
+                if (cliente != null) {
+                    csvFileIncorrect.Append(string.Join(";", zipCodeError[i]) + ";" + cliente.Fecha + "|" + cliente.Guia +";"+"No se Encuentra ZipCode:"+zipCodeError[i][15] + Environment.NewLine);
+                } else {
+                    csvFileIncorrect.Append(string.Join(";", zipCodeError[i]) + ";"+""+";"+mensaje + Environment.NewLine);
+                }
+            }
+            for (int i = 0; i < ciudadError.Count; i++) {
+                string cli = ciudadError[i][4];
+                
+                var cliente = (from c in bd.Clientes where c.NumeroCliente == cli  orderby c.Fecha descending select new {c.Guia,c.Fecha} ).FirstOrDefault();
+                if (cliente != null) {
+                    csvFileIncorrect.Append(string.Join(";", ciudadError[i]) + ";" + cliente.Fecha + "|" + cliente.Guia + ";" + "No Existe la Ciudad:" + ciudadError[i][13] + Environment.NewLine);
+                } else {
+                    csvFileIncorrect.Append(string.Join(";", ciudadError[i]) + ";"+ "" + ";" + "No Existe la Ciudad:" + ciudadError[i][13] + Environment.NewLine);
+                }
+            }
+            for (int i = 0; i < incorrectFile.Count; i++) {
+                csvFileIncorrect.Append(string.Join(";", incorrectFile[i]) + ";" + "HAY COLUMNAS CON SALTOS DE LINEA" + Environment.NewLine);
+
+            }
+            var ban = 0;
+            for (int i = 0; i < correctFile.Count; i++) {
+                string cliente = correctFile[i][4];
+                
+                cl = (from c in bd.Clientes where c.NumeroCliente == cliente select c).ToList();
+                if (cl != null && cl.Count > 0) {
+                    if (ban == 0) {
+                        csvFileIncorrect.Append(string.Join(";", Environment.NewLine));
+                        csvFileIncorrect.Append(string.Join(";","HISTORICO;")+ Environment.NewLine);
+                        csvFileIncorrect.Append(string.Join(";", parsedData[0]) + ";FechaBA" + Environment.NewLine);
+                        foreach (var j in cl) {
+                            csvFileIncorrect.Append(string.Join(";", correctFile[i]) + ";" + j.Fecha + "|" + j.Guia + ";" + Environment.NewLine);
+                        }
+                        ban = 1;
+                    } else {
+                        foreach(var j in cl){
+                            csvFileIncorrect.Append(string.Join(";", correctFile[i]) + ";" + j.Fecha + "|" + j.Guia + ";" + Environment.NewLine);
+                        }
+                        
+                    }
+                    
+                }
+            }
+
+            
+
+            System.IO.File.WriteAllText(filePathCorrect, csvFileCorrect.ToString(),Encoding.Default);
+            System.IO.File.WriteAllText(filePathIncorrect, csvFileIncorrect.ToString(),Encoding.Default);
+            
+            TempData["Alerta"] ="Archivos Generados";
+            ViewData["cor"] = filePathCorrect;
+            ViewData["incor"]  = filePathIncorrect;
+
+            return View("Index");
+        }
+
+        public ActionResult DownloadCorrectFile(string type) {
+
+            return File(type, "text/csv", "CorrectFile-"+DateTime.Now.ToString("yyyMMddmm")+".csv");
+        }
+        public ActionResult DownloadIncorrectFile(string type) {
+
+            return File(type, "text/csv", "IncorrectFile-" + DateTime.Now.ToString("yyyMMddmm") + ".csv");
+        }
+
+    }
+}
+
+
+
